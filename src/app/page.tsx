@@ -1,20 +1,22 @@
-import Scene from './components/Scene';
+'use client'
+import dynamic from 'next/dynamic'
 
-export default function Home() {
+const Blob = dynamic(() => import('@/app/components/canvas/Blob'), { ssr: false })
+
+export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="relative flex place-items-center">
-        <div className="text-center">
-          <h1 className="text-6xl font-bold">Welcome to my Portfolio</h1>
-          <p className="mt-3 text-2xl">
-            I'm a creative developer.
-          </p>
+    <>
+      <div className='mx-auto flex w-full flex-col flex-wrap items-center md:flex-row  lg:w-4/5'>
+        <div className='flex w-full flex-col items-start justify-center p-12 text-center md:w-2/5 md:text-left'>
+          <p className='w-full uppercase'>Next + React Three Fiber</p>
+          <h1 className='my-4 text-5xl font-bold leading-tight'>Next 3D Starter</h1>
+          <p className='mb-8 text-2xl leading-normal'>A minimalist starter for React, Next, and React Three Fiber.</p>
         </div>
       </div>
-      <div className="w-full h-96">
-        <Scene />
-      </div>
-    </main>
-  );
+
+      <Blob className='absolute top-0 right-0 -z-10' />
+    </>
+  )
 }
+
 
