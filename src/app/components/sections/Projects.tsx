@@ -1,12 +1,15 @@
 'use client'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import { ExternalLink, GitBranch, Calendar } from 'lucide-react'
+import { ExternalLink, GitBranch, Calendar, Play } from 'lucide-react'
 import { projects } from '../../../lib/data'
+import { useStore } from '../../../store/useStore'
 
 /* ── 3D Project Card ────────────────────────────── */
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null)
+  const cardRef  = useRef<HTMLDivElement>(null)
+  const openModal = useStore((s) => s.openModal)
+  const setCursor = useStore((s) => s.setCursorVariant)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
   const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [6, -6]), { stiffness: 300, damping: 30 })
@@ -96,22 +99,22 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
               href={project.link}
               target="_blank"
               rel="noopener noreferrer"
+              onMouseEnter={() => setCursor('button')}
+              onMouseLeave={() => setCursor('default')}
               className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-white font-medium transition-colors group/link"
             >
               <GitBranch size={16} className="group-hover/link:text-blue-400 transition-colors" />
-              <span>Source Code</span>
+              <span>Source</span>
             </a>
-            {project.demo && (
-              <a
-                href={project.demo}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-white font-medium transition-colors group/link ml-auto"
-              >
-                <ExternalLink size={16} className="group-hover/link:text-purple-400 transition-colors" />
-                <span>Live Demo</span>
-              </a>
-            )}
+            <button
+              onClick={() => openModal(project.title, project.demo || '#')}
+              onMouseEnter={() => setCursor('button')}
+              onMouseLeave={() => setCursor('default')}
+              className="ml-auto flex items-center gap-1.5 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors group/link"
+            >
+              <Play size={14} className="group-hover/link:scale-110 transition-transform" />
+              <span>Live Preview</span>
+            </button>
           </div>
         </div>
       </div>

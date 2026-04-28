@@ -1,11 +1,19 @@
 'use client'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
-import { StarsCanvas } from '../canvas/Stars'
+import { useEffect, useRef, useState, Suspense } from 'react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight, Globe, Network, Mail, MapPin, Phone } from 'lucide-react'
 import { personal, techBadges } from '../../../lib/data'
+import { useStore } from '../../../store/useStore'
+import { useMagnet } from '../../../hooks/useMagnet'
+
+// Lazy-load 3D scene (SSR disabled)
+const HeroScene = dynamic(
+  () => import('../canvas/HeroScene').then((m) => ({ default: m.HeroScene })),
+  { ssr: false, loading: () => null }
+)
 
 /* ── Typewriter hook ────────────────────────────── */
 function useTypewriter(words: string[], speed = 80, pause = 1800) {
@@ -122,7 +130,7 @@ export default function Hero() {
 
   return (
     <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden hero-grid">
-      <StarsCanvas />
+      <HeroScene />
 
       {/* Ambient blobs */}
       <div className="ambient-blob w-[500px] h-[500px] bg-blue-600/20 top-[10%] left-[-5%]" />
