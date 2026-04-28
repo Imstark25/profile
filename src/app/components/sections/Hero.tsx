@@ -9,10 +9,12 @@ import { personal, techBadges } from '../../../lib/data'
 import { useStore } from '../../../store/useStore'
 import { useMagnet } from '../../../hooks/useMagnet'
 
+import SceneLoader from '../ui/SceneLoader'
+
 // Lazy-load 3D scene (SSR disabled)
 const HeroScene = dynamic(
   () => import('../canvas/HeroScene').then((m) => ({ default: m.HeroScene })),
-  { ssr: false, loading: () => null }
+  { ssr: false, loading: () => <SceneLoader /> }
 )
 
 /* ── Typewriter hook ────────────────────────────── */
