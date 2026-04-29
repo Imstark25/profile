@@ -1,5 +1,5 @@
-@import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
 
 /* ─── Design Tokens — Dark (default) ────────────── */
 :root {
@@ -81,9 +81,10 @@ body {
   min-height: 100vh;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  transition: background 0.35s ease, color 0.35s ease;
 }
 
-::selection { background: rgba(59,130,246,0.35); color: #fff; }
+::selection { background: var(--selection-bg); color: var(--text); }
 
 /* ─── Scrollbar ──────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
@@ -264,10 +265,10 @@ body {
 .ambient-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
+  filter: blur(90px);
   pointer-events: none;
-  z-index: 0;
-  animation: floatBlob 8s ease-in-out infinite;
+  z-index: -1;
+  animation: floatBlob 14s ease-in-out infinite;
 }
 
 /* ─── Noise Overlay ──────────────────────────────── */
@@ -290,8 +291,8 @@ body::after {
 
 @keyframes floatBlob {
   0%, 100% { transform: translate(0,0) scale(1); }
-  33%       { transform: translate(30px,-20px) scale(1.05); }
-  66%       { transform: translate(-20px,15px) scale(0.97); }
+  40%       { transform: translate(18px,-14px) scale(1.03); }
+  70%       { transform: translate(-12px,10px) scale(0.98); }
 }
 
 @keyframes float {
@@ -300,8 +301,8 @@ body::after {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px var(--blue-glow); }
-  50%       { box-shadow: 0 0 40px var(--blue-glow), 0 0 80px var(--purple-glow); }
+  0%, 100% { box-shadow: 0 0 12px var(--blue-glow); }
+  50%       { box-shadow: 0 0 24px var(--blue-glow), 0 0 48px var(--purple-glow); }
 }
 
 @keyframes spin-slow {

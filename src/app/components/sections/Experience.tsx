@@ -48,8 +48,6 @@ function TimelineItem({
             ? <Briefcase size={18} className="text-blue-400" />
             : <GraduationCap size={18} className="text-purple-400" />}
 
-          {/* Ping ring */}
-          <span className={`absolute inset-0 rounded-full animate-ping opacity-20 ${isWork ? 'bg-blue-400' : 'bg-purple-400'}`} />
         </motion.div>
       </div>
 
@@ -98,8 +96,7 @@ export default function Experience() {
   const lineHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
 
   return (
-    <section className="py-32 relative overflow-hidden" ref={containerRef}>
-      <div className="ambient-blob w-96 h-96 bg-blue-600/08 top-0 right-1/4" />
+    <section className="py-28 relative overflow-hidden" ref={containerRef}>
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         {/* Header */}

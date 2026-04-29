@@ -44,10 +44,9 @@ const stats = [
 
 export default function About() {
   return (
-    <section className="py-32 relative overflow-hidden">
-      {/* Ambient */}
-      <div className="ambient-blob w-96 h-96 bg-blue-600/10 top-0 right-0" />
-      <div className="ambient-blob w-64 h-64 bg-purple-600/08 bottom-0 left-0" style={{ animationDelay: '4s' }} />
+    <section className="py-28 relative overflow-hidden">
+      {/* Minimal ambient blob */}
+      <div className="ambient-blob w-72 h-72 top-0 right-0" style={{ background: 'rgba(59,130,246,0.07)' }} />
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
 
@@ -100,21 +99,23 @@ export default function About() {
               transition={{ duration: 0.6, type: 'spring', stiffness: 100 }}
               className="relative mb-8 flex items-center gap-6"
             >
-              {/* Photo with glow ring */}
+              {/* Photo — clean border, no glow ring */}
               <div className="relative shrink-0">
-                <div className="absolute -inset-[3px] rounded-3xl bg-gradient-to-br from-blue-500 via-purple-500 to-cyan-400 opacity-90 blur-[3px]" />
-                <div className="relative w-28 h-36 rounded-3xl overflow-hidden border border-white/10">
+                <div className="relative w-28 h-36 rounded-3xl overflow-hidden"
+                     style={{ border: '1px solid var(--border)' }}>
                   <Image
                     src="/profile.jpg"
                     alt="Subash Chandra Bose A"
                     fill
+                    sizes="112px"
                     className="object-cover object-top"
                     priority
                   />
                 </div>
-                {/* Online badge */}
-                <span className="absolute -bottom-1.5 -right-1.5 flex items-center gap-1 bg-[#0b1121] border border-white/10 rounded-full px-2 py-0.5 text-[10px] font-bold text-emerald-400">
-                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse inline-block" />
+                {/* Available badge */}
+                <span className="absolute -bottom-1.5 -right-1.5 flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold text-emerald-400"
+                  style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}>
+                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full inline-block" />
                   Available
                 </span>
               </div>

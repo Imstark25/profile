@@ -25,8 +25,7 @@ function SkillBar({ name, level, delay, color }: { name: string; level: number; 
 
 export default function Skills() {
   return (
-    <section className="py-32 relative overflow-hidden">
-      <div className="ambient-blob w-96 h-96 bg-cyan-600/08 top-1/4 left-1/2 -translate-x-1/2" />
+    <section className="py-28 relative overflow-hidden">
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
