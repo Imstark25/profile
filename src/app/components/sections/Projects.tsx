@@ -1,13 +1,13 @@
 'use client'
 import { motion } from 'framer-motion'
-import { ExternalLink, GitBranch, Calendar, Play } from 'lucide-react'
+import { ExternalLink, GitBranch, Check, Play } from 'lucide-react'
 import { projects } from '../../../lib/data'
 import { useStore } from '../../../store/useStore'
 
 const accentColors = [
-  { bar: 'from-blue-500 to-indigo-600',   dot: '#3b82f6' },
-  { bar: 'from-purple-500 to-pink-600',   dot: '#8b5cf6' },
-  { bar: 'from-cyan-500 to-blue-500',     dot: '#06b6d4' },
+  { bar: 'from-blue-500 to-indigo-500',  dot: '#3b82f6' },
+  { bar: 'from-violet-500 to-purple-500', dot: '#8b5cf6' },
+  { bar: 'from-cyan-500 to-blue-500',    dot: '#06b6d4' },
 ]
 
 function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
@@ -16,53 +16,60 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 36 }}
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.55, delay: index * 0.1, ease: [0.4, 0, 0.2, 1] }}
-      whileHover={{ y: -4, scale: 1.015 }}
-      className="group relative rounded-2xl glass-card overflow-hidden flex flex-col h-full
-                 transition-shadow duration-300 hover:shadow-[0_16px_40px_rgba(0,0,0,0.22)]"
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.5, delay: index * 0.08, ease: [0.4, 0, 0.2, 1] }}
+      whileHover={{ y: -3 }}
+      className="group flex flex-col h-full rounded-2xl overflow-hidden glass-card
+                 transition-shadow duration-300 hover:shadow-[0_12px_36px_rgba(0,0,0,0.18)]"
     >
       {/* Top accent bar */}
-      <div className={`h-[3px] bg-gradient-to-r ${accent.bar} w-full shrink-0`} />
+      <div className={`h-[3px] w-full shrink-0 bg-gradient-to-r ${accent.bar}`} />
 
-      {/* Header */}
-      <div className="p-6 pb-4">
-        <div className="flex items-center gap-2 mb-2">
-          <Calendar size={11} style={{ color: 'var(--text-muted)', opacity: 0.7 }} />
-          <span className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>
-            {project.year}
-          </span>
-          {project.featured && (
-            <span
-              className="px-2 py-0.5 text-[10px] font-bold tracking-wider rounded-full"
-              style={{ background: `${accent.dot}18`, color: accent.dot }}
-            >
-              FEATURED
-            </span>
-          )}
+      <div className="flex flex-col flex-1 p-6 gap-4">
+
+        {/* Title row */}
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-[11px] font-semibold tracking-wider uppercase"
+              style={{ color: accent.dot }}>{project.year}</span>
+            {project.featured && (
+              <span className="text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded-full"
+                style={{ background: `${accent.dot}15`, color: accent.dot }}>
+                Featured
+              </span>
+            )}
+          </div>
+          <h3 className="text-base font-bold leading-snug" style={{ color: 'var(--text)' }}>
+            {project.title}
+          </h3>
         </div>
-        <h3 className="text-lg font-bold leading-tight" style={{ color: 'var(--text)' }}>
-          {project.title}
-        </h3>
-      </div>
 
-      {/* Body */}
-      <div className="px-6 pb-6 flex flex-col flex-1">
-        <p className="text-sm leading-relaxed mb-5 flex-1" style={{ color: 'var(--text-muted)' }}>
+        {/* Short description */}
+        <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)', lineHeight: 1.65 }}>
           {project.description}
         </p>
 
-        {/* Tech badges */}
-        <div className="flex flex-wrap gap-1.5 mb-5">
+        {/* Bullet highlights */}
+        <ul className="space-y-1.5 flex-1">
+          {project.bullets.map((b, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm" style={{ color: 'var(--text-muted)' }}>
+              <Check size={13} className="mt-0.5 shrink-0" style={{ color: accent.dot }} />
+              <span className="leading-relaxed">{b}</span>
+            </li>
+          ))}
+        </ul>
+
+        {/* Tech stack */}
+        <div className="flex flex-wrap gap-1.5 pt-1">
           {project.tech.map(t => (
             <span key={t} className="tech-badge">{t}</span>
           ))}
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-3 pt-4" style={{ borderTop: '1px solid var(--border)' }}>
+        <div className="flex items-center gap-4 pt-3" style={{ borderTop: '1px solid var(--border)' }}>
           <a
             href={project.link}
             target="_blank"
@@ -72,16 +79,16 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             onMouseEnter={e => (e.currentTarget.style.color = 'var(--text)')}
             onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}
           >
-            <GitBranch size={15} />
-            <span>Source</span>
+            <GitBranch size={14} />
+            GitHub
           </a>
           <button
             onClick={() => openModal(project.title, project.demo || '#')}
-            className="ml-auto flex items-center gap-1.5 text-sm font-semibold text-blue-400
-                       hover:text-blue-300 transition-colors"
+            className="ml-auto flex items-center gap-1.5 text-sm font-semibold
+                       text-blue-400 hover:text-blue-300 transition-colors"
           >
             <Play size={13} />
-            <span>Live Preview</span>
+            Live Demo
           </button>
         </div>
       </div>
@@ -92,28 +99,23 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 /* ── Section ────────────────────────────────────── */
 export default function Projects() {
   return (
-    <section className="py-28 relative overflow-hidden">
-      {/* Minimal decorative blob */}
-      <div
-        className="ambient-blob w-72 h-72 top-12 left-0"
-        style={{ background: 'rgba(139,92,246,0.07)' }}
-      />
+    <section id="projects" className="py-24 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6">
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.55, ease: [0.4, 0, 0.2, 1] }}
-          className="text-center mb-14"
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+          className="mb-12"
         >
-          <div className="section-tag mx-auto w-fit">Portfolio</div>
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-3" style={{ color: 'var(--text)' }}>
+          <div className="section-tag">Portfolio</div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: 'var(--text)' }}>
             Featured <span className="text-gradient">Projects</span>
           </h2>
-          <p className="max-w-lg mx-auto text-base" style={{ color: 'var(--text-muted)' }}>
-            Real-world cloud infrastructure and DevOps projects built with modern tooling.
+          <p className="text-sm max-w-md" style={{ color: 'var(--text-muted)', lineHeight: 1.7 }}>
+            Real-world cloud & DevOps projects — built, deployed, and monitored in production.
           </p>
         </motion.div>
 
@@ -126,11 +128,11 @@ export default function Projects() {
 
         {/* GitHub CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.25 }}
-          className="text-center mt-10"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-10"
         >
           <a
             href="https://github.com/Imstark25"
@@ -138,7 +140,7 @@ export default function Projects() {
             rel="noopener noreferrer"
             className="btn-ghost inline-flex"
           >
-            <GitBranch size={17} />
+            <GitBranch size={15} />
             View All on GitHub
           </a>
         </motion.div>

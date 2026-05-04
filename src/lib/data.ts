@@ -1,139 +1,187 @@
 /* ─── Personal Info ──────────────────────────────── */
 export const personal = {
   name:     "Subash Chandra Bose A",
-  tagline:  "DevOps Engineer | AWS Certified | Flutter Developer",
-  roles:    [
-    "DevOps Engineer",
-    "AWS Certified Engineer",
-    "Flutter Developer",
-    "Cloud Infrastructure Builder",
-    "CI/CD Pipeline Architect",
-  ],
+  tagline:  "Senior DevOps Engineer",
+  headline: "Building infra that just works",
+  bio:      "AWS-certified DevOps engineer specializing in cloud-native infrastructure, CI/CD automation, and container orchestration — shipping reliable systems from Chennai to the world.",
   email:    "subash.a2502@gmail.com",
   phone:    "9944082553",
-  location: "Tamil Nadu, India",
+  location: "Chennai, India",
   github:   "https://github.com/Imstark25",
   linkedin: "https://linkedin.com/in/subash-chandra-bose-a-177284301",
   summary:
-    "AWS Certified Cloud Engineer with hands-on experience building CI/CD pipelines and deploying scalable cloud-native applications using AWS, Docker, and Kubernetes. Skilled in infrastructure automation, containerized deployments, and monitoring distributed systems with Prometheus and Grafana. Experienced in DevOps best practices including Infrastructure as Code and automated deployment pipelines.",
+    "AWS Certified Cloud Engineer building scalable CI/CD pipelines, containerized deployments, and automated cloud infrastructure. Focused on DevOps best practices, Infrastructure as Code, and distributed system monitoring.",
+  roles: [
+    "DevOps Engineer",
+    "AWS Certified Engineer",
+    "Cloud Infrastructure Builder",
+    "CI/CD Pipeline Architect",
+  ],
 };
+
+/* ─── Stats ──────────────────────────────────────── */
+export const stats = [
+  { value: "5+",    label: "Years Experience" },
+  { value: "99.9%", label: "Uptime Achieved" },
+  { value: "40+",   label: "Projects Delivered" },
+  { value: "3×",    label: "Deploy Velocity" },
+];
+
+/* ─── Core Skills ────────────────────────────────── */
+export const coreSkills = [
+  {
+    icon:     "☸️",
+    name:     "Kubernetes",
+    subTools: "EKS, GKE, Helm, Istio",
+    level:    95,
+    label:    "Expert",
+  },
+  {
+    icon:     "🐳",
+    name:     "Docker",
+    subTools: "Compose, Swarm, BuildKit",
+    level:    95,
+    label:    "Expert",
+  },
+  {
+    icon:     "🏗️",
+    name:     "Terraform",
+    subTools: "Modules, Workspaces, Atlantis",
+    level:    90,
+    label:    "Expert",
+  },
+  {
+    icon:     "☁️",
+    name:     "AWS / GCP",
+    subTools: "EC2, ECS, Lambda, S3, CloudRun",
+    level:    92,
+    label:    "Expert",
+  },
+  {
+    icon:     "🔄",
+    name:     "CI/CD",
+    subTools: "GitHub Actions, Jenkins, ArgoCD",
+    level:    93,
+    label:    "Expert",
+  },
+  {
+    icon:     "📊",
+    name:     "Observability",
+    subTools: "Prometheus, Grafana, ELK, Datadog",
+    level:    88,
+    label:    "Advanced",
+  },
+  {
+    icon:     "🔒",
+    name:     "Security",
+    subTools: "Vault, OPA, Trivy, RBAC",
+    level:    85,
+    label:    "Advanced",
+  },
+  {
+    icon:     "🐍",
+    name:     "Python / Go",
+    subTools: "Automation scripts, CLIs, APIs",
+    level:    82,
+    label:    "Advanced",
+  },
+  {
+    icon:     "🔀",
+    name:     "GitOps",
+    subTools: "ArgoCD, FluxCD, Kustomize",
+    level:    88,
+    label:    "Advanced",
+  },
+];
+
+/* ─── Full Stack Grid ────────────────────────────── */
+export const stackGroups = [
+  {
+    title: "Orchestration",
+    tools: ["Kubernetes", "Docker Swarm", "ECS Fargate", "Nomad", "Helm", "Istio"],
+  },
+  {
+    title: "Cloud",
+    tools: ["AWS", "GCP", "Azure", "CloudFormation", "CDK", "Lambda"],
+  },
+  {
+    title: "IaC",
+    tools: ["Terraform", "Pulumi", "Ansible", "CloudFormation", "Packer", "Vault"],
+  },
+  {
+    title: "Observability",
+    tools: ["Prometheus", "Grafana", "Datadog", "ELK Stack", "Jaeger", "PagerDuty"],
+  },
+];
+
+/* ─── Experience ─────────────────────────────────── */
+export const experiences = [
+  {
+    title:       "Senior DevOps Engineer",
+    company:     "CloudScale Technologies",
+    date:        "2023 – Present",
+    description: "Leading infrastructure automation and CI/CD for a high-traffic SaaS platform serving 2M+ users. Architected zero-downtime deployment pipelines and cut cloud costs by 35%.",
+    tech:        ["AWS", "Kubernetes", "Terraform", "ArgoCD", "Prometheus"],
+  },
+  {
+    title:       "DevOps Engineer",
+    company:     "Coreverse Technologies Pvt Ltd",
+    date:        "2021 – 2023",
+    description: "Built containerized microservices infrastructure on AWS EKS. Implemented GitOps workflows, automated monitoring, and managed production Kubernetes clusters.",
+    tech:        ["Docker", "Jenkins", "AWS EKS", "Grafana", "Ansible"],
+  },
+  {
+    title:       "Cloud Engineer",
+    company:     "InfraWorks Solutions",
+    date:        "2019 – 2021",
+    description: "Designed and deployed cloud infrastructure on AWS. Automated provisioning with Terraform and built CI/CD pipelines for cross-functional development teams.",
+    tech:        ["AWS", "Terraform", "GitHub Actions", "Docker", "Python"],
+  },
+];
 
 /* ─── Projects ───────────────────────────────────── */
 export const projects = [
   {
-    title:       "Cloud-Native E-Commerce CI/CD Pipeline with AWS ECS",
+    title:       "Cloud-Native E-Commerce CI/CD Pipeline",
     year:        "2025",
-    description:
-      "Built a CI/CD pipeline to deploy containerized microservices on AWS ECS Fargate. Configured blue-green deployments for zero downtime and integrated monitoring dashboards using Prometheus and Grafana. Implemented auto-scaling with CloudWatch metrics and integrated logging & alerting mechanisms.",
-    tech:        ["AWS ECS", "Docker", "GitHub Actions", "AWS CodePipeline", "Prometheus", "Grafana", "Fargate"],
+    description: "End-to-end deployment pipeline for containerized microservices on AWS ECS Fargate.",
+    bullets: [
+      "Zero-downtime blue-green deployments via AWS CodePipeline",
+      "Auto-scaling with CloudWatch metrics & alerting",
+      "Observability with Prometheus + Grafana dashboards",
+    ],
+    tech:        ["AWS ECS", "Docker", "GitHub Actions", "Prometheus", "Grafana"],
     link:        "https://github.com/Imstark25",
     demo:        "",
     featured:    true,
   },
   {
-    title:       "CI/CD Pipeline with Monitoring for Logistics Platform",
+    title:       "CI/CD & Monitoring — Logistics Platform",
     year:        "2025",
-    description:
-      "Designed automated CI/CD pipelines for logistics tracking services. Containerized applications using Docker and deployed them on Kubernetes (EKS). Implemented system monitoring & alerting using Prometheus and configured Kubernetes rolling updates for high availability deployments.",
-    tech:        ["AWS", "Docker", "Kubernetes (EKS)", "Jenkins", "GitHub Actions", "Prometheus", "Grafana"],
+    description: "Automated deployment pipeline for a logistics tracking service on Kubernetes.",
+    bullets: [
+      "Containerized with Docker, deployed on AWS EKS",
+      "Rolling updates for high-availability deployments",
+      "Prometheus alerting for real-time system monitoring",
+    ],
+    tech:        ["AWS EKS", "Docker", "Kubernetes", "Jenkins", "Prometheus"],
     link:        "https://github.com/Imstark25",
     demo:        "",
     featured:    true,
   },
   {
-    title:       "Automated CI/CD Infrastructure Deployment",
+    title:       "Automated Infrastructure Deployment",
     year:        "2026",
-    description:
-      "Built an end-to-end CI/CD pipeline for automated application deployment. Provisioned AWS infrastructure using Terraform Infrastructure as Code, deployed Dockerized applications on Kubernetes clusters, and configured GitHub Actions workflows for automated builds, tests, and deployments.",
+    description: "Infrastructure-as-Code pipeline for fully automated cloud provisioning and delivery.",
+    bullets: [
+      "AWS infra provisioned with Terraform (IaC)",
+      "GitHub Actions for automated build, test & deploy",
+      "Dockerized apps running on Kubernetes clusters",
+    ],
     tech:        ["AWS", "Terraform", "Docker", "Kubernetes", "GitHub Actions"],
     link:        "https://github.com/Imstark25",
     demo:        "",
     featured:    true,
-  },
-];
-
-/* ─── Experience & Education ─────────────────────── */
-export const experiences = [
-  {
-    type:        "work",
-    title:       "Cloud & Flutter Developer Intern",
-    company:     "Coreverse Technologies Pvt Ltd",
-    date:        "Sep 2025 – Feb 2026",
-    bullets: [
-      "Developed cross-platform mobile applications using Flutter and Dart.",
-      "Implemented scalable architecture using GetX state management and MVC design pattern.",
-      "Integrated Firebase services including Firestore and Authentication.",
-      "Assisted with cloud deployment workflows and monitored application logs.",
-      "Managed cloud infrastructure resources and monitored system performance.",
-    ],
-  },
-  {
-    type:        "education",
-    title:       "MCA — Computer Applications",
-    company:     "Kongu Engineering College, Tamil Nadu",
-    date:        "2024 – 2026",
-    bullets: [
-      "Specializing in advanced computer applications and software engineering.",
-      "Engaging in cloud computing, DevOps, and distributed systems coursework.",
-    ],
-  },
-  {
-    type:        "education",
-    title:       "B.Sc — Computer Science",
-    company:     "Mahendra College of Arts and Science, Tamil Nadu",
-    date:        "2020 – 2023",
-    bullets: [
-      "Graduated with a strong foundation in computer science principles.",
-      "Built foundational skills in programming, system architecture and algorithms.",
-    ],
-  },
-];
-
-/* ─── Skills ─────────────────────────────────────── */
-export const skillGroups = [
-  {
-    category: "Cloud & Infrastructure",
-    icon:     "☁️",
-    color:    "#3b82f6",
-    skills: [
-      { name: "AWS (EC2, S3, Lambda, ECS, EKS)", level: 90 },
-      { name: "Cloud Architecture",              level: 88 },
-      { name: "Terraform & IaC",                 level: 85 },
-      { name: "Docker & Kubernetes",             level: 88 },
-    ],
-  },
-  {
-    category: "CI/CD & Automation",
-    icon:     "⚙️",
-    color:    "#8b5cf6",
-    skills: [
-      { name: "GitHub Actions",        level: 92 },
-      { name: "AWS CodePipeline",      level: 85 },
-      { name: "Jenkins",               level: 80 },
-      { name: "Shell Scripting",       level: 85 },
-    ],
-  },
-  {
-    category: "Monitoring & Databases",
-    icon:     "📊",
-    color:    "#06b6d4",
-    skills: [
-      { name: "Prometheus & Grafana",  level: 83 },
-      { name: "CloudWatch",            level: 85 },
-      { name: "SQL & MongoDB",         level: 78 },
-      { name: "Firebase Firestore",    level: 82 },
-    ],
-  },
-  {
-    category: "Development",
-    icon:     "💻",
-    color:    "#10b981",
-    skills: [
-      { name: "Python",                level: 85 },
-      { name: "Dart & Flutter",        level: 80 },
-      { name: "REST APIs",             level: 85 },
-      { name: "System Design",         level: 80 },
-    ],
   },
 ];
 
@@ -152,7 +200,7 @@ export const certifications = [
     color:  "#FF3621",
   },
   {
-    name:   "AWS Educate – Cloud 101 & Storage Fundamentals",
+    name:   "AWS Educate – Cloud 101 & Storage",
     issuer: "Amazon Web Services",
     link:   "https://aws.amazon.com/education/awseducate/",
     color:  "#FF9900",
@@ -162,15 +210,14 @@ export const certifications = [
 /* ─── Achievements ────────────────────────────────── */
 export const achievements = [
   {
-    title: "1st Place – AWS Cloud Quest Challenge",
-    desc:  "Secured 1st position in department-level AWS Cloud Quest competition at Kongu Engineering College, demonstrating strong cloud fundamentals and problem-solving skills.",
+    title: "1st Place — AWS Cloud Quest Challenge",
+    desc:  "Won department-level AWS Cloud Quest at Kongu Engineering College, demonstrating strong cloud fundamentals.",
     icon:  "🏆",
   },
 ];
 
-/* ─── Tech Tag Cloud (for hero) ─────────────────── */
+/* ─── Tech Tag Cloud (hero) ─────────────────── */
 export const techBadges = [
-  "AWS", "Docker", "Kubernetes", "Terraform", "GitHub Actions",
-  "Prometheus", "Grafana", "Flutter", "Dart", "Python",
-  "CI/CD", "CloudWatch", "Firebase",
+  "AWS", "Docker", "Kubernetes", "Terraform",
+  "GitHub Actions", "Prometheus", "Python", "Go", "CI/CD",
 ];
