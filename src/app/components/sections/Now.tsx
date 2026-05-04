@@ -34,22 +34,20 @@ const nowItems = [
 
 export default function Now() {
   return (
-    <section className="py-32 relative overflow-hidden">
-      <div className="ambient-blob w-80 h-80 bg-purple-600/08 top-0 right-0" />
-
-      <div className="max-w-5xl mx-auto px-6 relative z-10">
+    <section id="now" className="py-24 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.5, ease: [0.4,0,0.2,1] }}
+          className="mb-12"
         >
-          <div className="section-tag mx-auto w-fit">📡 Live Status</div>
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
+          <div className="section-tag">📡 Live Status</div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ color: 'var(--text)' }}>
             What I&apos;m <span className="text-gradient">Doing Now</span>
           </h2>
-          <p className="text-gray-500 max-w-md mx-auto text-base">
-            Real-time snapshot of what I&apos;m currently learning, building, and exploring.
+          <p className="text-sm max-w-md" style={{ color: 'var(--text-muted)', lineHeight: 1.7 }}>
+            What I&apos;m currently learning, building, and exploring.
           </p>
         </motion.div>
 
@@ -72,22 +70,24 @@ export default function Now() {
               />
 
               <div className="flex items-start gap-4 relative">
-                <span className="text-3xl shrink-0 mt-0.5">{item.emoji}</span>
+                <span className="text-2xl shrink-0 mt-0.5">{item.emoji}</span>
                 <div className="flex-1">
-                  <div className="flex items-center justify-between mb-1">
-                    <h3 className="text-sm font-bold text-white">{item.title}</h3>
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-sm font-bold" style={{ color: 'var(--text)' }}>{item.title}</h3>
                     <span
                       className="text-[10px] font-bold tracking-widest uppercase px-2 py-0.5 rounded-full shrink-0 ml-2"
                       style={{
-                        background: `${item.color}18`,
+                        background: `${item.color}15`,
                         color: item.color,
-                        border: `1px solid ${item.color}30`,
+                        border: `1px solid ${item.color}28`,
                       }}
                     >
                       {item.status}
                     </span>
                   </div>
-                  <p className="text-gray-400 text-xs leading-relaxed">{item.desc}</p>
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)', lineHeight: 1.65 }}>
+                    {item.desc}
+                  </p>
                 </div>
               </div>
 
