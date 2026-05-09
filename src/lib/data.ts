@@ -1,187 +1,180 @@
 /* ─── Personal Info ──────────────────────────────── */
 export const personal = {
   name:     "Subash Chandra Bose A",
-  tagline:  "Senior DevOps Engineer",
-  headline: "Building infra that just works",
-  bio:      "AWS-certified DevOps engineer specializing in cloud-native infrastructure, CI/CD automation, and container orchestration — shipping reliable systems from Chennai to the world.",
+  tagline:  "Aspiring DevOps Engineer",
+  headline: "Learning, building, and growing one deployment at a time",
+  bio:      "A fresher with a passion for DevOps and cloud technologies. I've been hands-on with AWS, Docker, and CI/CD tools through projects and self-learning — eager to contribute to a real team and grow fast.",
   email:    "subash.a2502@gmail.com",
   phone:    "9944082553",
   location: "Chennai, India",
   github:   "https://github.com/Imstark25",
   linkedin: "https://linkedin.com/in/subash-chandra-bose-a-177284301",
   summary:
-    "AWS Certified Cloud Engineer building scalable CI/CD pipelines, containerized deployments, and automated cloud infrastructure. Focused on DevOps best practices, Infrastructure as Code, and distributed system monitoring.",
+    "Fresh graduate with foundational knowledge in DevOps, cloud computing, and containerization. Actively building projects and earning certifications to bridge the gap between learning and production-ready skills.",
   roles: [
-    "DevOps Engineer",
-    "AWS Certified Engineer",
-    "Cloud Infrastructure Builder",
-    "CI/CD Pipeline Architect",
+    "Aspiring DevOps Engineer",
+    "Cloud Enthusiast",
+    "AWS Learner",
+    "Open Source Explorer",
   ],
 };
 
 /* ─── Stats ──────────────────────────────────────── */
 export const stats = [
-  { value: "5+",    label: "Years Experience" },
-  { value: "99.9%", label: "Uptime Achieved" },
-  { value: "40+",   label: "Projects Delivered" },
-  { value: "3×",    label: "Deploy Velocity" },
+  { value: "3+",   label: "Personal Projects" },
+  { value: "2",    label: "AWS Certifications" },
+  { value: "1",    label: "Hackathon Win" },
+  { value: "100%", label: "Eager to Learn" },
 ];
 
 /* ─── Core Skills ────────────────────────────────── */
 export const coreSkills = [
   {
-    icon:     "☸️",
-    name:     "Kubernetes",
-    subTools: "EKS, GKE, Helm, Istio",
-    level:    95,
-    label:    "Expert",
-  },
-  {
     icon:     "🐳",
     name:     "Docker",
-    subTools: "Compose, Swarm, BuildKit",
-    level:    95,
-    label:    "Expert",
-  },
-  {
-    icon:     "🏗️",
-    name:     "Terraform",
-    subTools: "Modules, Workspaces, Atlantis",
-    level:    90,
-    label:    "Expert",
+    subTools: "Containers, Compose, Images",
+    level:    65,
+    label:    "Learning",
   },
   {
     icon:     "☁️",
-    name:     "AWS / GCP",
-    subTools: "EC2, ECS, Lambda, S3, CloudRun",
-    level:    92,
-    label:    "Expert",
+    name:     "AWS",
+    subTools: "EC2, S3, IAM, Lambda basics",
+    level:    60,
+    label:    "Learning",
   },
   {
     icon:     "🔄",
     name:     "CI/CD",
-    subTools: "GitHub Actions, Jenkins, ArgoCD",
-    level:    93,
-    label:    "Expert",
-  },
-  {
-    icon:     "📊",
-    name:     "Observability",
-    subTools: "Prometheus, Grafana, ELK, Datadog",
-    level:    88,
-    label:    "Advanced",
-  },
-  {
-    icon:     "🔒",
-    name:     "Security",
-    subTools: "Vault, OPA, Trivy, RBAC",
-    level:    85,
-    label:    "Advanced",
+    subTools: "GitHub Actions, basic pipelines",
+    level:    55,
+    label:    "Learning",
   },
   {
     icon:     "🐍",
-    name:     "Python / Go",
-    subTools: "Automation scripts, CLIs, APIs",
-    level:    82,
-    label:    "Advanced",
+    name:     "Python",
+    subTools: "Scripting, automation basics",
+    level:    60,
+    label:    "Learning",
   },
   {
     icon:     "🔀",
-    name:     "GitOps",
-    subTools: "ArgoCD, FluxCD, Kustomize",
-    level:    88,
-    label:    "Advanced",
+    name:     "Git & GitHub",
+    subTools: "Version control, branching, PRs",
+    level:    70,
+    label:    "Comfortable",
+  },
+  {
+    icon:     "☸️",
+    name:     "Kubernetes",
+    subTools: "Pods, deployments — beginner level",
+    level:    35,
+    label:    "Beginner",
+  },
+  {
+    icon:     "🏗️",
+    name:     "Terraform",
+    subTools: "Basic IaC, HCL syntax",
+    level:    40,
+    label:    "Beginner",
+  },
+  {
+    icon:     "🐧",
+    name:     "Linux",
+    subTools: "CLI, bash scripting, file system",
+    level:    65,
+    label:    "Learning",
   },
 ];
 
 /* ─── Full Stack Grid ────────────────────────────── */
 export const stackGroups = [
   {
-    title: "Orchestration",
-    tools: ["Kubernetes", "Docker Swarm", "ECS Fargate", "Nomad", "Helm", "Istio"],
+    title: "Cloud & Infra",
+    tools: ["AWS EC2", "AWS S3", "AWS IAM", "AWS Lambda", "AWS Educate"],
   },
   {
-    title: "Cloud",
-    tools: ["AWS", "GCP", "Azure", "CloudFormation", "CDK", "Lambda"],
+    title: "Containers",
+    tools: ["Docker", "Docker Compose", "Dockerfile", "Docker Hub"],
   },
   {
-    title: "IaC",
-    tools: ["Terraform", "Pulumi", "Ansible", "CloudFormation", "Packer", "Vault"],
+    title: "CI/CD & Automation",
+    tools: ["GitHub Actions", "Git", "Bash Scripting", "Python Scripts"],
   },
   {
-    title: "Observability",
-    tools: ["Prometheus", "Grafana", "Datadog", "ELK Stack", "Jaeger", "PagerDuty"],
+    title: "Learning Next",
+    tools: ["Kubernetes", "Terraform", "Prometheus", "Grafana", "Ansible"],
   },
 ];
 
 /* ─── Experience ─────────────────────────────────── */
 export const experiences = [
   {
-    title:       "Senior DevOps Engineer",
-    company:     "CloudScale Technologies",
+    title:       "Final Year Project — DevOps Pipeline",
+    company:     "Kongu Engineering College",
+    date:        "2024 – 2025",
+    description: "Built a CI/CD pipeline for a college project using GitHub Actions and Docker. Deployed a simple web app to AWS EC2 with automated build and test stages. This was my first hands-on experience with real DevOps workflows.",
+    tech:        ["GitHub Actions", "Docker", "AWS EC2", "Python", "Git"],
+  },
+  {
+    title:       "AWS Cloud Quest — 1st Place Winner",
+    company:     "Department Hackathon, KEC",
+    date:        "2024",
+    description: "Won the department-level AWS Cloud Quest competition. Demonstrated practical knowledge of AWS core services including EC2, S3, IAM, and basic serverless with Lambda.",
+    tech:        ["AWS EC2", "AWS S3", "AWS IAM", "AWS Lambda"],
+  },
+  {
+    title:       "Self-Learning — DevOps & Cloud",
+    company:     "Personal Development",
     date:        "2023 – Present",
-    description: "Leading infrastructure automation and CI/CD for a high-traffic SaaS platform serving 2M+ users. Architected zero-downtime deployment pipelines and cut cloud costs by 35%.",
-    tech:        ["AWS", "Kubernetes", "Terraform", "ArgoCD", "Prometheus"],
-  },
-  {
-    title:       "DevOps Engineer",
-    company:     "Coreverse Technologies Pvt Ltd",
-    date:        "2021 – 2023",
-    description: "Built containerized microservices infrastructure on AWS EKS. Implemented GitOps workflows, automated monitoring, and managed production Kubernetes clusters.",
-    tech:        ["Docker", "Jenkins", "AWS EKS", "Grafana", "Ansible"],
-  },
-  {
-    title:       "Cloud Engineer",
-    company:     "InfraWorks Solutions",
-    date:        "2019 – 2021",
-    description: "Designed and deployed cloud infrastructure on AWS. Automated provisioning with Terraform and built CI/CD pipelines for cross-functional development teams.",
-    tech:        ["AWS", "Terraform", "GitHub Actions", "Docker", "Python"],
+    description: "Actively learning DevOps through online courses, hands-on labs, and personal projects. Completed AWS certifications and Databricks Generative AI Fundamentals. Building side projects to practice Docker, CI/CD, and cloud deployment.",
+    tech:        ["AWS", "Docker", "Terraform", "GitHub Actions", "Linux"],
   },
 ];
 
 /* ─── Projects ───────────────────────────────────── */
 export const projects = [
   {
-    title:       "Cloud-Native E-Commerce CI/CD Pipeline",
+    title:       "Dockerized Web App with CI/CD",
     year:        "2025",
-    description: "End-to-end deployment pipeline for containerized microservices on AWS ECS Fargate.",
+    description: "Containerized a simple Node.js app using Docker and set up a GitHub Actions pipeline to auto-build and push images.",
     bullets: [
-      "Zero-downtime blue-green deployments via AWS CodePipeline",
-      "Auto-scaling with CloudWatch metrics & alerting",
-      "Observability with Prometheus + Grafana dashboards",
+      "Wrote a Dockerfile and docker-compose.yml from scratch",
+      "GitHub Actions workflow: build → test → push to Docker Hub",
+      "Deployed to AWS EC2 via SSH on every main branch push",
     ],
-    tech:        ["AWS ECS", "Docker", "GitHub Actions", "Prometheus", "Grafana"],
+    tech:        ["Docker", "GitHub Actions", "AWS EC2", "Node.js"],
     link:        "https://github.com/Imstark25",
     demo:        "",
     featured:    true,
   },
   {
-    title:       "CI/CD & Monitoring — Logistics Platform",
+    title:       "AWS Infrastructure Setup",
     year:        "2025",
-    description: "Automated deployment pipeline for a logistics tracking service on Kubernetes.",
+    description: "Manually provisioned a small AWS environment with EC2, S3, and IAM roles as part of learning cloud fundamentals.",
     bullets: [
-      "Containerized with Docker, deployed on AWS EKS",
-      "Rolling updates for high-availability deployments",
-      "Prometheus alerting for real-time system monitoring",
+      "Created EC2 instances, configured security groups and key pairs",
+      "Set up S3 buckets with versioning and basic bucket policies",
+      "Wrote basic Terraform config to recreate the setup as IaC",
     ],
-    tech:        ["AWS EKS", "Docker", "Kubernetes", "Jenkins", "Prometheus"],
+    tech:        ["AWS EC2", "AWS S3", "IAM", "Terraform"],
     link:        "https://github.com/Imstark25",
     demo:        "",
     featured:    true,
   },
   {
-    title:       "Automated Infrastructure Deployment",
-    year:        "2026",
-    description: "Infrastructure-as-Code pipeline for fully automated cloud provisioning and delivery.",
+    title:       "Automated Backup Script",
+    year:        "2024",
+    description: "Wrote a Python + Bash script to automatically back up important directories to AWS S3 on a schedule.",
     bullets: [
-      "AWS infra provisioned with Terraform (IaC)",
-      "GitHub Actions for automated build, test & deploy",
-      "Dockerized apps running on Kubernetes clusters",
+      "Python script using boto3 to upload files to S3",
+      "Cron job on Linux for scheduled execution",
+      "Email notification on success/failure",
     ],
-    tech:        ["AWS", "Terraform", "Docker", "Kubernetes", "GitHub Actions"],
+    tech:        ["Python", "AWS S3", "Linux", "Bash", "Cron"],
     link:        "https://github.com/Imstark25",
     demo:        "",
-    featured:    true,
+    featured:    false,
   },
 ];
 
@@ -216,8 +209,8 @@ export const achievements = [
   },
 ];
 
-/* ─── Tech Tag Cloud (hero) ─────────────────── */
+/* ─── Tech Tag Cloud ────────────────────────────── */
 export const techBadges = [
-  "AWS", "Docker", "Kubernetes", "Terraform",
-  "GitHub Actions", "Prometheus", "Python", "Go", "CI/CD",
+  "AWS", "Docker", "GitHub Actions", "Python",
+  "Git", "Linux", "Terraform", "Kubernetes",
 ];
