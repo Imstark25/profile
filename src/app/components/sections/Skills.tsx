@@ -78,7 +78,7 @@ export default function Skills() {
             className={`text-sm max-w-md ${headerVisible ? 'animate-fade-up delay-200' : 'opacity-0'}`}
             style={{ color: 'var(--text-muted)' }}
           >
-            Technologies I work with daily to build and maintain production infrastructure.
+            Tools and technologies I&apos;m actively learning and practising through projects.
           </p>
         </div>
 
@@ -86,7 +86,7 @@ export default function Skills() {
         <div className="space-y-2 sm:space-y-3 mb-16 sm:mb-20">
           {coreSkills.map((skill, i) => {
             const color = skillColors[i % skillColors.length]
-            const isExpert = skill.label === 'Expert'
+            const isExpert = skill.label === 'Comfortable'
             return (
               <SkillRow key={i} skill={skill} index={i} color={color} isExpert={isExpert} />
             )
@@ -176,9 +176,9 @@ function SkillRow({
         <div
           className="text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 self-start sm:self-auto"
           style={{
-            background: isExpert ? 'var(--amber-bg)' : 'rgba(99,102,241,0.07)',
-            color: isExpert ? 'var(--amber)' : 'var(--text-muted)',
-            border: `1px solid ${isExpert ? 'var(--amber-border)' : 'rgba(99,102,241,0.15)'}`,
+            background: isExpert ? 'rgba(16,185,129,0.1)' : skill.label === 'Learning' ? 'rgba(99,102,241,0.08)' : 'rgba(107,114,128,0.08)',
+            color: isExpert ? 'var(--emerald)' : skill.label === 'Learning' ? 'var(--primary-light)' : 'var(--text-light)',
+            border: `1px solid ${isExpert ? 'rgba(16,185,129,0.3)' : skill.label === 'Learning' ? 'rgba(99,102,241,0.2)' : 'rgba(107,114,128,0.2)'}`,
           }}
         >
           {skill.label}

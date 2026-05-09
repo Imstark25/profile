@@ -153,18 +153,18 @@ export default function Experience() {
 
         {/* Header */}
         <div ref={headerRef} className="mb-10 sm:mb-12">
-          <div className={`section-tag ${headerVis ? 'animate-fade-up' : 'opacity-0'}`}>Journey</div>
+          <div className={`section-tag ${headerVis ? 'animate-fade-up' : 'opacity-0'}`}>My Journey</div>
           <h2
             className={`text-2xl sm:text-3xl md:text-4xl font-semibold mb-3 ${headerVis ? 'animate-fade-up delay-100' : 'opacity-0'}`}
             style={{ fontFamily: 'var(--font-serif)' }}
           >
-            Work <span className="gradient-text">Experience</span>
+            Projects &amp; <span className="gradient-text">Journey</span>
           </h2>
           <p
             className={`text-sm max-w-md ${headerVis ? 'animate-fade-up delay-200' : 'opacity-0'}`}
             style={{ color: 'var(--text-muted)' }}
           >
-            Where I&apos;ve built infrastructure and shipped reliable systems.
+            Projects I&apos;ve built, competitions I&apos;ve won, and skills I&apos;ve been developing.
           </p>
         </div>
 

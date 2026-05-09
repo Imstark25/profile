@@ -37,7 +37,7 @@ function useTypewriter(words: string[], speed = 80, pause = 2000) {
 }
 
 export default function Hero() {
-  const roles = ['Senior DevOps Engineer', 'Cloud Architect', 'Infrastructure Specialist', 'SRE Expert']
+  const roles = ['Aspiring DevOps Engineer', 'Cloud Enthusiast', 'AWS Learner', 'Open Source Explorer']
   const typed = useTypewriter(roles)
 
   return (
@@ -180,9 +180,9 @@ export default function Hero() {
           {/* Quick stat pills */}
           <div className="flex flex-wrap gap-4 mt-10 animate-fade-up delay-600">
             {[
-              { value: '5+', label: 'Years Exp.' },
-              { value: '50+', label: 'Deployments' },
-              { value: '99.9%', label: 'Uptime SLA' },
+              { value: '3+', label: 'Projects Built' },
+              { value: '2',  label: 'Certifications' },
+              { value: '🏆', label: 'Hackathon Win' },
             ].map((s, i) => (
               <div
                 key={i}

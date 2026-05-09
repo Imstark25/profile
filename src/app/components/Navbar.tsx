@@ -54,6 +54,9 @@ export default function Navbar() {
           scrolled ? 'py-2' : 'py-4'
         }`}
         style={{
+          width: '100%',
+          maxWidth: '100vw',
+          overflowX: 'hidden',
           background: scrolled
             ? 'rgba(13,15,20,0.88)'
             : 'transparent',
@@ -62,7 +65,7 @@ export default function Navbar() {
           boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.3)' : 'none',
         }}
       >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between">
+        <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between" style={{ minWidth: 0 }}>
 
           {/* Logo */}
           <a
