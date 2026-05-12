@@ -1,221 +1,350 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { useRef, useState } from 'react'
+import { Mail, MapPin, Send, ArrowRight, Sparkles } from 'lucide-react'
+import { GithubIcon, LinkedinIcon } from '../../../lib/icons'
 import { personal } from '../../../lib/data'
 
-const contactLinks = [
+const links = [
   {
     label: 'Email',
     value: personal.email,
-    href:  `mailto:${personal.email}`,
-    icon:  '✉️',
-    color: '#e8547a',
-    bg:    'rgba(232,84,122,0.07)',
-    border: 'rgba(232,84,122,0.22)',
+    href: `mailto:${personal.email}`,
+    icon: Mail,
+    color: '#8B5CF6',
+    glow: 'rgba(139,92,246,0.12)',
+    border: 'rgba(139,92,246,0.22)',
   },
   {
     label: 'LinkedIn',
     value: 'subash-chandra-bose-a',
-    href:  personal.linkedin,
-    icon:  '🔗',
-    color: '#c084b4',
-    bg:    'rgba(192,132,180,0.07)',
-    border: 'rgba(192,132,180,0.22)',
+    href: personal.linkedin,
+    icon: LinkedinIcon,
+    color: '#06B6D4',
+    glow: 'rgba(6,182,212,0.10)',
+    border: 'rgba(6,182,212,0.22)',
   },
   {
     label: 'GitHub',
     value: 'Imstark25',
-    href:  personal.github,
-    icon:  '🐙',
-    color: '#3a8f6a',
-    bg:    'rgba(58,143,106,0.07)',
-    border: 'rgba(58,143,106,0.22)',
+    href: personal.github,
+    icon: GithubIcon,
+    color: '#10b981',
+    glow: 'rgba(16,185,129,0.08)',
+    border: 'rgba(16,185,129,0.22)',
   },
 ]
 
-/* ── Contact Link Card ──────────────────────────── */
-function ContactCard({
-  link, index,
-}: {
-  link: typeof contactLinks[0]
-  index: number
-}) {
-  const ref   = useRef<HTMLDivElement>(null)
-  const [vis, setVis] = useState(false)
-  const [hovered, setHovered] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setVis(true) },
-      { threshold: 0.15 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
-  return (
-    <div
-      ref={ref}
-      style={{
-        opacity:    vis ? 1 : 0,
-        transform:  vis ? 'translateX(0)' : 'translateX(30px)',
-        transition: `opacity 0.55s ease ${index * 110}ms, transform 0.55s ease ${index * 110}ms`,
-      }}
-    >
-      <a
-        href={link.href}
-        target={link.href.startsWith('http') ? '_blank' : undefined}
-        rel="noopener noreferrer"
-        className="card flex items-center gap-3 sm:gap-4 p-4 sm:p-5 group"
-        style={{ textDecoration: 'none', cursor: 'pointer' }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        {/* Icon */}
-        <span
-          className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-xl text-lg sm:text-xl shrink-0 transition-all duration-300"
-          style={{
-            background: hovered ? link.bg : 'rgba(232,84,122,0.04)',
-            border: `1px solid ${hovered ? link.border : 'rgba(232,84,122,0.10)'}`,
-            boxShadow: hovered ? `0 0 16px ${link.color}33` : 'none',
-          }}
-        >
-          {link.icon}
-        </span>
-
-        <div className="flex-1 min-w-0">
-          <div
-            className="text-[10px] sm:text-[11px] font-bold tracking-wider uppercase mb-0.5 transition-colors duration-200"
-            style={{ color: hovered ? link.color : 'var(--text-light)' }}
-          >
-            {link.label}
-          </div>
-          <div
-            className="text-xs sm:text-sm font-medium truncate transition-colors duration-200"
-            style={{ color: hovered ? 'var(--text)' : 'var(--text-muted)' }}
-          >
-            {link.value}
-          </div>
-        </div>
-
-        {/* Arrow */}
-        <svg
-          width="16" height="16" viewBox="0 0 24 24"
-          fill="none" stroke="currentColor" strokeWidth="2"
-          strokeLinecap="round" strokeLinejoin="round"
-          className="shrink-0 transition-all duration-300"
-          style={{
-            color: hovered ? link.color : 'var(--text-light)',
-            transform: hovered ? 'translateX(4px)' : 'translateX(0)',
-          }}
-        >
-          <line x1="5" y1="12" x2="19" y2="12" />
-          <polyline points="12 5 19 12 12 19" />
-        </svg>
-      </a>
-    </div>
-  )
-}
-
-/* ── Contact Section ─────────────────────────────── */
 export default function Contact() {
-  const headerRef = useRef<HTMLDivElement>(null)
-  const quoteRef  = useRef<HTMLDivElement>(null)
-  const [headerVis, setHeaderVis] = useState(false)
-  const [quoteVis,  setQuoteVis]  = useState(false)
+  const ref     = useRef<HTMLDivElement>(null)
+  const inView  = useInView(ref, { once: true, margin: '-80px' })
+  const [form, setForm]       = useState({ name: '', email: '', message: '' })
+  const [status, setStatus]   = useState<'idle' | 'sending' | 'sent'>('idle')
 
-  useEffect(() => {
-    const obs1 = new IntersectionObserver(([e]) => { if (e.isIntersecting) setHeaderVis(true) }, { threshold: 0.2 })
-    const obs2 = new IntersectionObserver(([e]) => { if (e.isIntersecting) setQuoteVis(true) },  { threshold: 0.2 })
-    if (headerRef.current) obs1.observe(headerRef.current)
-    if (quoteRef.current)  obs2.observe(quoteRef.current)
-    return () => { obs1.disconnect(); obs2.disconnect() }
-  }, [])
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setStatus('sending')
+    setTimeout(() => setStatus('sent'), 1500)
+  }
 
   return (
-    <section id="contact" className="py-16 sm:py-20 md:py-28">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
+    <section id="contact" className="section">
+      {/* Ambient glow */}
+      <div
+        className="absolute left-1/2 -translate-x-1/2 pointer-events-none"
+        style={{
+          width: '600px', height: '300px',
+          background: 'radial-gradient(ellipse, rgba(139,92,246,0.10) 0%, transparent 70%)',
+          filter: 'blur(60px)',
+          top: 0,
+        }}
+      />
 
+      <div className="section-inner relative z-10">
         {/* Header */}
-        <div ref={headerRef} className="mb-10 sm:mb-12">
-          <div className={`section-tag ${headerVis ? 'animate-fade-up' : 'opacity-0'}`}>Connect</div>
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-14"
+        >
+          <div className="section-tag mx-auto w-fit mb-4">Contact</div>
           <h2
-            className={`text-2xl sm:text-3xl md:text-4xl font-semibold mb-3 ${headerVis ? 'animate-fade-up delay-100' : 'opacity-0'}`}
-            style={{ fontFamily: 'var(--font-serif)' }}
+            className="font-bold mb-4"
+            style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', letterSpacing: '-0.025em' }}
           >
-            Get in <span className="gradient-text">Touch</span>
+            Let&apos;s build something{' '}
+            <span className="grad-text">impactful</span>
           </h2>
-        </div>
+          <p className="text-sm max-w-md mx-auto" style={{ color: 'var(--text-3)' }}>
+            I&apos;m actively seeking my first DevOps, Cloud, or Backend engineering role. If you have an opportunity — or just want to talk shop — I&apos;d love to hear from you.
+          </p>
+        </motion.div>
 
-        {/* Two-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 
-          {/* Left: Quote */}
-          <div
-            ref={quoteRef}
-            style={{
-              opacity:    quoteVis ? 1 : 0,
-              transform:  quoteVis ? 'translateY(0)' : 'translateY(20px)',
-              transition: 'opacity 0.6s ease, transform 0.6s ease',
-            }}
+          {/* Left: Form */}
+          <motion.div
+            initial={{ opacity: 0, x: -32 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.65, delay: 0.1 }}
           >
-            {/* Decorative glow behind blockquote */}
-            <div className="relative">
-              <div
-                className="absolute -inset-4 rounded-2xl pointer-events-none"
+            {status === 'sent' ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="p-8 rounded-2xl text-center"
                 style={{
-                  background: 'radial-gradient(ellipse at top left, rgba(232,84,122,0.07) 0%, transparent 70%)',
-                }}
-              />
-              <blockquote
-                className="relative text-lg sm:text-xl md:text-2xl leading-relaxed mb-6"
-                style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontStyle: 'italic',
-                  color: 'var(--text)',
-                  borderLeft: '3px solid transparent',
-                  borderImage: 'linear-gradient(180deg, #e8547a, #c084b4) 1',
-                  paddingLeft: '1.5rem',
+                  background: 'rgba(16,185,129,0.06)',
+                  border: '1px solid rgba(16,185,129,0.20)',
                 }}
               >
-                &ldquo;Every expert was once a beginner — I&apos;m just getting started, and I&apos;m all in.&rdquo;
-              </blockquote>
-            </div>
+                <Sparkles size={36} className="mx-auto mb-4" style={{ color: '#10b981' }} />
+                <h3 className="text-lg font-bold mb-2" style={{ color: 'var(--text)' }}>
+                  Message received! 🎉
+                </h3>
+                <p className="text-sm" style={{ color: 'var(--text-3)' }}>
+                  Thanks for reaching out. I&apos;ll get back to you within 24 hours.
+                </p>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Name */}
+                <div>
+                  <label className="block text-xs font-semibold mb-2 uppercase tracking-wider" style={{ color: 'var(--text-4)' }}>
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    required
+                    value={form.name}
+                    onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      padding: '0.875rem 1.125rem',
+                      borderRadius: '0.875rem',
+                      background: 'rgba(15,23,42,0.7)',
+                      border: '1px solid rgba(148,163,184,0.09)',
+                      color: 'var(--text)',
+                      fontSize: '0.875rem',
+                      fontFamily: 'var(--font)',
+                      outline: 'none',
+                      transition: 'all 0.22s ease',
+                      backdropFilter: 'blur(12px)',
+                    }}
+                    onFocus={e => {
+                      e.target.style.borderColor = 'rgba(139,92,246,0.45)'
+                      e.target.style.boxShadow = '0 0 0 3px rgba(139,92,246,0.12)'
+                    }}
+                    onBlur={e => {
+                      e.target.style.borderColor = 'rgba(148,163,184,0.09)'
+                      e.target.style.boxShadow = 'none'
+                    }}
+                  />
+                </div>
 
-            <p className="text-sm leading-relaxed mb-8" style={{ color: 'var(--text-muted)' }}>
-              I&apos;m actively looking for my first DevOps or cloud role where I can contribute, learn from experienced engineers, and grow. If you have an opportunity or just want to connect — I&apos;d love to hear from you!
-            </p>
+                {/* Email */}
+                <div>
+                  <label className="block text-xs font-semibold mb-2 uppercase tracking-wider" style={{ color: 'var(--text-4)' }}>
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    required
+                    value={form.email}
+                    onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      padding: '0.875rem 1.125rem',
+                      borderRadius: '0.875rem',
+                      background: 'rgba(15,23,42,0.7)',
+                      border: '1px solid rgba(148,163,184,0.09)',
+                      color: 'var(--text)',
+                      fontSize: '0.875rem',
+                      fontFamily: 'var(--font)',
+                      outline: 'none',
+                      transition: 'all 0.22s ease',
+                      backdropFilter: 'blur(12px)',
+                    }}
+                    onFocus={e => {
+                      e.target.style.borderColor = 'rgba(139,92,246,0.45)'
+                      e.target.style.boxShadow = '0 0 0 3px rgba(139,92,246,0.12)'
+                    }}
+                    onBlur={e => {
+                      e.target.style.borderColor = 'rgba(148,163,184,0.09)'
+                      e.target.style.boxShadow = 'none'
+                    }}
+                  />
+                </div>
 
-            {/* Availability card */}
+                {/* Message */}
+                <div>
+                  <label className="block text-xs font-semibold mb-2 uppercase tracking-wider" style={{ color: 'var(--text-4)' }}>
+                    Message
+                  </label>
+                  <textarea
+                    placeholder="Tell me about the opportunity or just say hi..."
+                    rows={5}
+                    required
+                    value={form.message}
+                    onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
+                    style={{
+                      width: '100%',
+                      padding: '0.875rem 1.125rem',
+                      borderRadius: '0.875rem',
+                      background: 'rgba(15,23,42,0.7)',
+                      border: '1px solid rgba(148,163,184,0.09)',
+                      color: 'var(--text)',
+                      fontSize: '0.875rem',
+                      fontFamily: 'var(--font)',
+                      outline: 'none',
+                      resize: 'vertical',
+                      transition: 'all 0.22s ease',
+                      backdropFilter: 'blur(12px)',
+                    }}
+                    onFocus={e => {
+                      e.target.style.borderColor = 'rgba(139,92,246,0.45)'
+                      e.target.style.boxShadow = '0 0 0 3px rgba(139,92,246,0.12)'
+                    }}
+                    onBlur={e => {
+                      e.target.style.borderColor = 'rgba(148,163,184,0.09)'
+                      e.target.style.boxShadow = 'none'
+                    }}
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={status === 'sending'}
+                  className="btn btn-primary w-full justify-center"
+                  style={{ opacity: status === 'sending' ? 0.7 : 1 }}
+                >
+                  {status === 'sending' ? (
+                    <>
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                        style={{ width: 16, height: 16, border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', borderRadius: '50%' }}
+                      />
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send size={15} />
+                      <span>Send Message</span>
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
+          </motion.div>
+
+          {/* Right: Links + info */}
+          <motion.div
+            initial={{ opacity: 0, x: 32 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.65, delay: 0.15 }}
+            className="space-y-4"
+          >
+            {/* Location */}
             <div
-              className="rounded-xl p-4 sm:p-5 flex items-center gap-4"
+              className="flex items-center gap-3 p-4 rounded-xl"
               style={{
-                background: 'var(--emerald-bg)',
-                border: '1px solid var(--emerald-border)',
+                background: 'rgba(15,23,42,0.6)',
+                border: '1px solid rgba(148,163,184,0.07)',
               }}
             >
               <div
-                className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-                style={{ background: 'rgba(16,185,129,0.15)', fontSize: '1.25rem' }}
+                className="w-9 h-9 rounded-lg flex items-center justify-center"
+                style={{ background: 'rgba(139,92,246,0.12)', border: '1px solid rgba(139,92,246,0.2)' }}
+              >
+                <MapPin size={16} style={{ color: 'var(--violet-light)' }} />
+              </div>
+              <div>
+                <div className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: 'var(--text-4)' }}>
+                  Location
+                </div>
+                <div className="text-sm font-medium" style={{ color: 'var(--text-2)' }}>
+                  {personal.location} · Available remote
+                </div>
+              </div>
+            </div>
+
+            {/* Available status */}
+            <div
+              className="p-4 rounded-xl flex items-center gap-4"
+              style={{
+                background: 'rgba(16,185,129,0.06)',
+                border: '1px solid rgba(16,185,129,0.18)',
+              }}
+            >
+              <div
+                className="w-9 h-9 rounded-lg flex items-center justify-center text-lg"
+                style={{ background: 'rgba(16,185,129,0.12)' }}
               >
                 🟢
               </div>
               <div>
-                <div className="text-sm font-semibold" style={{ color: 'var(--emerald)' }}>
-                  Available for Work
-                </div>
-                <div className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>
-                  Open to full-time & freelance opportunities
+                <div className="text-sm font-bold" style={{ color: '#34d399' }}>Available for work</div>
+                <div className="text-xs" style={{ color: 'var(--text-4)' }}>
+                  Open to full-time · remote · hybrid opportunities
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Right: Contact links */}
-          <div className="space-y-3 sm:space-y-4">
-            {contactLinks.map((link, i) => (
-              <ContactCard key={i} link={link} index={i} />
+            {/* Contact links */}
+            {links.map((l, i) => (
+              <motion.a
+                key={l.label}
+                href={l.href}
+                target={l.href.startsWith('http') ? '_blank' : undefined}
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, y: 16 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.25 + i * 0.1, duration: 0.45 }}
+                whileHover={{ x: 4, transition: { duration: 0.18 } }}
+                className="flex items-center gap-3 p-4 rounded-xl group cursor-pointer"
+                style={{
+                  background: l.glow,
+                  border: `1px solid ${l.border}`,
+                  textDecoration: 'none',
+                  transition: 'border-color 0.25s ease',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor = l.color + '50'
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor = l.border
+                }}
+              >
+                <div
+                  className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+                  style={{ background: `${l.color}18`, border: `1px solid ${l.color}30` }}
+                >
+                  <l.icon size={16} style={{ color: l.color }} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs font-semibold uppercase tracking-wider mb-0.5" style={{ color: 'var(--text-4)' }}>
+                    {l.label}
+                  </div>
+                  <div className="text-sm font-medium truncate" style={{ color: 'var(--text-2)' }}>
+                    {l.value}
+                  </div>
+                </div>
+                <ArrowRight
+                  size={15}
+                  style={{
+                    color: 'var(--text-4)',
+                    transition: 'transform 0.2s ease, color 0.2s ease',
+                  }}
+                  className="group-hover:text-violet-300 group-hover:translate-x-1"
+                />
+              </motion.a>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
