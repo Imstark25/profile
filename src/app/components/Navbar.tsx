@@ -3,15 +3,15 @@ import { useState, useEffect } from 'react'
 import { personal } from '../../lib/data'
 
 const navLinks = [
-  { name: 'Stack',      href: '#skills' },
-  { name: 'Work',       href: '#experience' },
-  { name: 'Contact',    href: '#contact' },
+  { name: 'Stack',   href: '#skills' },
+  { name: 'Work',    href: '#experience' },
+  { name: 'Contact', href: '#contact' },
 ]
 
 export default function Navbar() {
-  const [scrolled,    setScrolled]    = useState(false)
-  const [mobileOpen,  setMobileOpen]  = useState(false)
-  const [activeLink,  setActiveLink]  = useState('')
+  const [scrolled,   setScrolled]   = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [activeLink, setActiveLink] = useState('')
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -25,7 +25,6 @@ export default function Navbar() {
     return () => window.removeEventListener('resize', onResize)
   }, [])
 
-  /* Close mobile menu on outside tap */
   useEffect(() => {
     if (!mobileOpen) return
     const handler = (e: MouseEvent) => {
@@ -58,11 +57,11 @@ export default function Navbar() {
           maxWidth: '100vw',
           overflowX: 'hidden',
           background: scrolled
-            ? 'rgba(13,15,20,0.88)'
+            ? 'rgba(254,246,248,0.90)'
             : 'transparent',
-          backdropFilter: scrolled ? 'blur(16px) saturate(180%)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(99,102,241,0.12)' : '1px solid transparent',
-          boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.3)' : 'none',
+          backdropFilter: scrolled ? 'blur(18px) saturate(160%)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(232,84,122,0.14)' : '1px solid transparent',
+          boxShadow: scrolled ? '0 4px 28px rgba(180,60,100,0.10)' : 'none',
         }}
       >
         <div className="w-full max-w-5xl mx-auto px-4 sm:px-6 flex items-center justify-between" style={{ minWidth: 0 }}>
@@ -74,11 +73,11 @@ export default function Navbar() {
             className="flex items-center gap-2 group"
             style={{ textDecoration: 'none' }}
           >
-            {/* Glowing dot */}
+            {/* Blossom dot */}
             <span
               className="w-2 h-2 rounded-full flex-shrink-0"
               style={{
-                background: 'linear-gradient(135deg, var(--primary), var(--cyan))',
+                background: 'linear-gradient(135deg, var(--primary), var(--petal))',
                 boxShadow: '0 0 8px var(--primary)',
               }}
             />
@@ -89,7 +88,7 @@ export default function Navbar() {
               {personal.name.split(' ')[0]}
               <span
                 style={{
-                  background: 'linear-gradient(135deg, var(--primary-light), var(--cyan))',
+                  background: 'linear-gradient(135deg, var(--primary), var(--violet))',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                 }}
@@ -106,16 +105,16 @@ export default function Navbar() {
                 onClick={(e) => { e.preventDefault(); scrollTo(item.href) }}
                 className="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
                 style={{
-                  color: activeLink === item.href ? 'var(--primary-light)' : 'var(--text-muted)',
+                  color: activeLink === item.href ? 'var(--primary)' : 'var(--text-muted)',
                   background: activeLink === item.href ? 'var(--primary-bg)' : 'transparent',
                   animationDelay: `${i * 60}ms`,
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.color = 'var(--primary-light)'
+                  e.currentTarget.style.color = 'var(--primary)'
                   e.currentTarget.style.background = 'var(--primary-bg)'
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.color = activeLink === item.href ? 'var(--primary-light)' : 'var(--text-muted)'
+                  e.currentTarget.style.color = activeLink === item.href ? 'var(--primary)' : 'var(--text-muted)'
                   e.currentTarget.style.background = activeLink === item.href ? 'var(--primary-bg)' : 'transparent'
                 }}
               >
@@ -130,7 +129,7 @@ export default function Navbar() {
                 background: 'var(--emerald-bg)',
                 color: 'var(--emerald)',
                 border: '1px solid var(--emerald-border)',
-                boxShadow: '0 0 10px rgba(16,185,129,0.1)',
+                boxShadow: '0 0 10px rgba(58,143,106,0.10)',
               }}
             >
               <span className="w-1.5 h-1.5 rounded-full inline-block animate-pulse-dot" style={{ background: 'var(--emerald)' }} />
@@ -144,7 +143,7 @@ export default function Navbar() {
             onClick={() => setMobileOpen(v => !v)}
             className="md:hidden w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200"
             style={{
-              border: '1px solid rgba(99,102,241,0.25)',
+              border: '1px solid rgba(232,84,122,0.25)',
               color: 'var(--text-muted)',
               background: mobileOpen ? 'var(--primary-bg)' : 'transparent',
             }}
@@ -163,18 +162,18 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Menu — slide + fade */}
+      {/* Mobile Menu */}
       {mobileOpen && (
         <div
           id="mobile-menu"
           className="fixed z-40 left-3 right-3 animate-drawer"
           style={{
             top: scrolled ? '56px' : '64px',
-            background: 'rgba(18,21,30,0.97)',
+            background: 'rgba(255,242,246,0.97)',
             backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(99,102,241,0.18)',
+            border: '1px solid rgba(232,84,122,0.18)',
             borderRadius: 'var(--radius-xl)',
-            boxShadow: '0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(99,102,241,0.08)',
+            boxShadow: '0 8px 40px rgba(180,60,100,0.14), 0 0 0 1px rgba(232,84,122,0.07)',
           }}
         >
           <div className="px-4 py-5 flex flex-col gap-1">
@@ -189,7 +188,7 @@ export default function Navbar() {
                   animationDelay: `${i * 50}ms`,
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.color = 'var(--primary-light)'
+                  e.currentTarget.style.color = 'var(--primary)'
                   e.currentTarget.style.background = 'var(--primary-bg)'
                 }}
                 onMouseLeave={e => {
@@ -199,13 +198,13 @@ export default function Navbar() {
               >
                 <span
                   className="w-1 h-4 rounded-full"
-                  style={{ background: 'linear-gradient(180deg, var(--primary), var(--cyan))', opacity: 0.5 }}
+                  style={{ background: 'linear-gradient(180deg, var(--primary), var(--petal))', opacity: 0.6 }}
                 />
                 {item.name}
               </a>
             ))}
 
-            <div className="mt-3 pt-3" style={{ borderTop: '1px solid rgba(99,102,241,0.1)' }}>
+            <div className="mt-3 pt-3" style={{ borderTop: '1px solid rgba(232,84,122,0.10)' }}>
               <div
                 className="flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold w-fit"
                 style={{

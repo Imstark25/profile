@@ -8,27 +8,27 @@ const contactLinks = [
     value: personal.email,
     href:  `mailto:${personal.email}`,
     icon:  '✉️',
-    color: '#6366f1',
-    bg:    'rgba(99,102,241,0.06)',
-    border: 'rgba(99,102,241,0.2)',
+    color: '#e8547a',
+    bg:    'rgba(232,84,122,0.07)',
+    border: 'rgba(232,84,122,0.22)',
   },
   {
     label: 'LinkedIn',
     value: 'subash-chandra-bose-a',
     href:  personal.linkedin,
     icon:  '🔗',
-    color: '#22d3ee',
-    bg:    'rgba(34,211,238,0.06)',
-    border: 'rgba(34,211,238,0.18)',
+    color: '#c084b4',
+    bg:    'rgba(192,132,180,0.07)',
+    border: 'rgba(192,132,180,0.22)',
   },
   {
     label: 'GitHub',
     value: 'Imstark25',
     href:  personal.github,
     icon:  '🐙',
-    color: '#a855f7',
-    bg:    'rgba(168,85,247,0.06)',
-    border: 'rgba(168,85,247,0.18)',
+    color: '#3a8f6a',
+    bg:    'rgba(58,143,106,0.07)',
+    border: 'rgba(58,143,106,0.22)',
   },
 ]
 
@@ -74,8 +74,8 @@ function ContactCard({
         <span
           className="w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-xl text-lg sm:text-xl shrink-0 transition-all duration-300"
           style={{
-            background: hovered ? link.bg : 'rgba(255,255,255,0.04)',
-            border: `1px solid ${hovered ? link.border : 'rgba(255,255,255,0.06)'}`,
+            background: hovered ? link.bg : 'rgba(232,84,122,0.04)',
+            border: `1px solid ${hovered ? link.border : 'rgba(232,84,122,0.10)'}`,
             boxShadow: hovered ? `0 0 16px ${link.color}33` : 'none',
           }}
         >
@@ -163,7 +163,7 @@ export default function Contact() {
               <div
                 className="absolute -inset-4 rounded-2xl pointer-events-none"
                 style={{
-                  background: 'radial-gradient(ellipse at top left, rgba(99,102,241,0.06) 0%, transparent 70%)',
+                  background: 'radial-gradient(ellipse at top left, rgba(232,84,122,0.07) 0%, transparent 70%)',
                 }}
               />
               <blockquote
@@ -173,7 +173,7 @@ export default function Contact() {
                   fontStyle: 'italic',
                   color: 'var(--text)',
                   borderLeft: '3px solid transparent',
-                  borderImage: 'linear-gradient(180deg, #6366f1, #22d3ee) 1',
+                  borderImage: 'linear-gradient(180deg, #e8547a, #c084b4) 1',
                   paddingLeft: '1.5rem',
                 }}
               >
