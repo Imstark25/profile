@@ -31,20 +31,20 @@ function ProgressBar({ level, color }: { level: number; color: string }) {
 }
 
 const skillColors = [
-  'linear-gradient(90deg, #6366f1, #818cf8)',
-  'linear-gradient(90deg, #22d3ee, #67e8f9)',
-  'linear-gradient(90deg, #a855f7, #c084fc)',
-  'linear-gradient(90deg, #f59e0b, #fbbf24)',
-  'linear-gradient(90deg, #10b981, #34d399)',
-  'linear-gradient(90deg, #ef4444, #f87171)',
+  'linear-gradient(90deg, #e8547a, #f07ca0)',
+  'linear-gradient(90deg, #c084b4, #d8a8cc)',
+  'linear-gradient(90deg, #e8547a, #c084b4)',
+  'linear-gradient(90deg, #d97706, #f59e0b)',
+  'linear-gradient(90deg, #3a8f6a, #52b38a)',
+  'linear-gradient(90deg, #f07ca0, #fccde1)',
 ]
 
 const groupIcons = ['☁️', '🐳', '🔁', '📊']
 const groupColors = [
-  { accent: '#6366f1', bg: 'rgba(99,102,241,0.06)',   border: 'rgba(99,102,241,0.2)' },
-  { accent: '#22d3ee', bg: 'rgba(34,211,238,0.06)',   border: 'rgba(34,211,238,0.18)' },
-  { accent: '#a855f7', bg: 'rgba(168,85,247,0.06)',   border: 'rgba(168,85,247,0.18)' },
-  { accent: '#f59e0b', bg: 'rgba(245,158,11,0.06)',   border: 'rgba(245,158,11,0.18)' },
+  { accent: '#e8547a', bg: 'rgba(232,84,122,0.07)',   border: 'rgba(232,84,122,0.20)' },
+  { accent: '#c084b4', bg: 'rgba(192,132,180,0.07)',  border: 'rgba(192,132,180,0.20)' },
+  { accent: '#d97706', bg: 'rgba(217,119,6,0.07)',    border: 'rgba(217,119,6,0.20)'  },
+  { accent: '#3a8f6a', bg: 'rgba(58,143,106,0.07)',   border: 'rgba(58,143,106,0.20)' },
 ]
 
 /* ── Main Section ───────────────────────────────── */
@@ -153,7 +153,7 @@ function SkillRow({
         <div className="flex items-center gap-3 sm:w-[260px] shrink-0">
           <span
             className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl text-lg shrink-0"
-            style={{ background: 'rgba(99,102,241,0.08)', border: '1px solid rgba(99,102,241,0.15)' }}
+            style={{ background: 'rgba(232,84,122,0.07)', border: '1px solid rgba(232,84,122,0.18)' }}
           >
             {skill.icon}
           </span>

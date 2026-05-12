@@ -1,6 +1,6 @@
 'use client'
 import { personal } from '../../../lib/data'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 /* ── Typewriter hook ─────────────────────────────── */
 function useTypewriter(words: string[], speed = 80, pause = 2000) {
@@ -46,36 +46,43 @@ export default function Hero() {
       className="relative w-full min-h-screen flex items-center overflow-hidden"
       style={{ paddingTop: '5rem' }}
     >
-      {/* ── Ambient Glow Blobs ── */}
+      {/* ── Blossom Ambient Glow Blobs ── */}
       <div
-        className="absolute top-[-10%] left-[-5%] w-[480px] h-[480px] rounded-full pointer-events-none animate-glow-pulse animate-float"
+        className="absolute top-[-10%] left-[-5%] w-[520px] h-[520px] rounded-full pointer-events-none animate-glow-pulse animate-float"
         style={{
-          background: 'radial-gradient(circle, rgba(99,102,241,0.14) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(249,168,201,0.28) 0%, transparent 70%)',
+          filter: 'blur(70px)',
+        }}
+      />
+      <div
+        className="absolute bottom-[5%] right-[-8%] w-[400px] h-[400px] rounded-full pointer-events-none animate-float delay-300"
+        style={{
+          background: 'radial-gradient(circle, rgba(232,84,122,0.16) 0%, transparent 70%)',
           filter: 'blur(60px)',
         }}
       />
       <div
-        className="absolute bottom-[10%] right-[-5%] w-[360px] h-[360px] rounded-full pointer-events-none animate-float delay-300"
+        className="absolute top-[40%] right-[18%] w-[260px] h-[260px] rounded-full pointer-events-none animate-float delay-600"
         style={{
-          background: 'radial-gradient(circle, rgba(34,211,238,0.1) 0%, transparent 70%)',
-          filter: 'blur(60px)',
+          background: 'radial-gradient(circle, rgba(192,132,180,0.14) 0%, transparent 70%)',
+          filter: 'blur(50px)',
         }}
       />
+      {/* Extra petal-pink blob */}
       <div
-        className="absolute top-[40%] right-[20%] w-[240px] h-[240px] rounded-full pointer-events-none animate-float delay-600"
+        className="absolute top-[15%] right-[5%] w-[180px] h-[180px] rounded-full pointer-events-none animate-float delay-400"
         style={{
-          background: 'radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(252,205,225,0.35) 0%, transparent 70%)',
           filter: 'blur(40px)',
         }}
       />
 
-      {/* ── Grid noise overlay ── */}
+      {/* ── Soft dot grid overlay ── */}
       <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        className="absolute inset-0 pointer-events-none opacity-[0.045]"
         style={{
-          backgroundImage: `linear-gradient(rgba(99,102,241,0.5) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(99,102,241,0.5) 1px, transparent 1px)`,
-          backgroundSize: '48px 48px',
+          backgroundImage: `radial-gradient(circle, rgba(232,84,122,0.6) 1px, transparent 1px)`,
+          backgroundSize: '32px 32px',
         }}
       />
 
@@ -95,6 +102,17 @@ export default function Hero() {
               <span className="w-2 h-2 rounded-full inline-block animate-pulse-dot" style={{ background: 'var(--emerald)' }} />
               Available for new opportunities
             </span>
+            {/* Blossom season badge */}
+            <span
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
+              style={{
+                background: 'rgba(249,168,201,0.15)',
+                border: '1px solid rgba(232,84,122,0.22)',
+                color: 'var(--primary)',
+              }}
+            >
+              🌸 Spring 2026
+            </span>
           </div>
 
           {/* Italic quote */}
@@ -103,7 +121,7 @@ export default function Hero() {
             style={{
               fontFamily: 'var(--font-serif)',
               fontStyle: 'italic',
-              color: 'var(--primary-light)',
+              color: 'var(--primary)',
               fontWeight: 400,
             }}
           >
@@ -117,6 +135,7 @@ export default function Hero() {
               fontFamily: 'var(--font-serif)',
               lineHeight: 1.05,
               fontSize: 'clamp(2.2rem, 7vw, 4rem)',
+              color: 'var(--text)',
             }}
           >
             {personal.name}
@@ -129,14 +148,14 @@ export default function Hero() {
           >
             <span
               className="text-base sm:text-lg md:text-xl font-medium"
-              style={{ color: 'var(--cyan)' }}
+              style={{ color: 'var(--primary-light)' }}
             >
               {typed}
             </span>
             <span
               className="inline-block w-[2px] h-5 ml-0.5"
               style={{
-                background: 'var(--cyan)',
+                background: 'var(--primary)',
                 animation: 'blink 1s step-end infinite',
               }}
             />
@@ -187,11 +206,11 @@ export default function Hero() {
               <div
                 key={i}
                 className="flex flex-col"
-                style={{ borderLeft: '2px solid rgba(99,102,241,0.35)', paddingLeft: '0.75rem' }}
+                style={{ borderLeft: '2px solid rgba(232,84,122,0.32)', paddingLeft: '0.75rem' }}
               >
                 <span
                   className="text-xl font-bold"
-                  style={{ fontFamily: 'var(--font-serif)', color: 'var(--primary-light)' }}
+                  style={{ fontFamily: 'var(--font-serif)', color: 'var(--primary)' }}
                 >
                   {s.value}
                 </span>
@@ -202,9 +221,9 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Bottom gradient fade */}
+      {/* Bottom gradient fade to page background */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
         style={{ background: 'linear-gradient(to top, var(--bg), transparent)' }}
       />
     </section>
