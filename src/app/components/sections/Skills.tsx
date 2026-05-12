@@ -1,257 +1,227 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
-import { coreSkills, stackGroups } from '../../../lib/data'
+import { motion } from 'framer-motion'
+import { useRef } from 'react'
+import { useInView } from 'framer-motion'
 
-/* ── Animated Progress Bar ──────────────────────── */
-function ProgressBar({ level, color }: { level: number; color: string }) {
+const categories = [
+  {
+    label: 'Cloud',
+    color: '#06B6D4',
+    glow: 'rgba(6,182,212,0.10)',
+    border: 'rgba(6,182,212,0.18)',
+    icon: '☁️',
+    skills: [
+      { name: 'AWS EC2', level: 65 },
+      { name: 'AWS S3', level: 70 },
+      { name: 'AWS IAM', level: 60 },
+      { name: 'AWS Lambda', level: 50 },
+      { name: 'AWS Educate', level: 75 },
+      { name: 'VPC & Security', level: 45 },
+    ],
+  },
+  {
+    label: 'DevOps',
+    color: '#8B5CF6',
+    glow: 'rgba(139,92,246,0.10)',
+    border: 'rgba(139,92,246,0.20)',
+    icon: '🔁',
+    skills: [
+      { name: 'Docker', level: 65 },
+      { name: 'Docker Compose', level: 60 },
+      { name: 'GitHub Actions', level: 58 },
+      { name: 'CI/CD Pipelines', level: 55 },
+      { name: 'Bash Scripting', level: 62 },
+      { name: 'Linux Admin', level: 65 },
+    ],
+  },
+  {
+    label: 'Programming',
+    color: '#10b981',
+    glow: 'rgba(16,185,129,0.08)',
+    border: 'rgba(16,185,129,0.18)',
+    icon: '🐍',
+    skills: [
+      { name: 'Python', level: 60 },
+      { name: 'JavaScript', level: 55 },
+      { name: 'TypeScript', level: 45 },
+      { name: 'Bash', level: 60 },
+      { name: 'YAML / JSON', level: 70 },
+      { name: 'HCL (Terraform)', level: 40 },
+    ],
+  },
+  {
+    label: 'Backend',
+    color: '#f43f5e',
+    glow: 'rgba(244,63,94,0.08)',
+    border: 'rgba(244,63,94,0.18)',
+    icon: '⚙️',
+    skills: [
+      { name: 'Node.js', level: 55 },
+      { name: 'REST APIs', level: 58 },
+      { name: 'Express.js', level: 52 },
+      { name: 'FastAPI', level: 40 },
+      { name: 'JWT Auth', level: 48 },
+      { name: 'Git / GitHub', level: 72 },
+    ],
+  },
+  {
+    label: 'Database',
+    color: '#f59e0b',
+    glow: 'rgba(245,158,11,0.08)',
+    border: 'rgba(245,158,11,0.18)',
+    icon: '🗄️',
+    skills: [
+      { name: 'MongoDB', level: 55 },
+      { name: 'MySQL', level: 60 },
+      { name: 'PostgreSQL', level: 42 },
+      { name: 'S3 (Object Store)', level: 65 },
+      { name: 'Redis basics', level: 35 },
+    ],
+  },
+  {
+    label: 'Tools & AI',
+    color: '#a78bfa',
+    glow: 'rgba(167,139,250,0.08)',
+    border: 'rgba(167,139,250,0.18)',
+    icon: '🤖',
+    skills: [
+      { name: 'Databricks GenAI', level: 55 },
+      { name: 'VS Code', level: 80 },
+      { name: 'Postman', level: 65 },
+      { name: 'Kubernetes (beginner)', level: 35 },
+      { name: 'Terraform basics', level: 40 },
+      { name: 'Grafana / Prometheus', level: 30 },
+    ],
+  },
+]
+
+function SkillBar({ name, level, color, delay }: { name: string; level: number; color: string; delay: number }) {
   const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setVisible(true) },
-      { threshold: 0.4 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
+  const inView = useInView(ref, { once: true })
 
   return (
-    <div ref={ref} className="progress-bar-track">
+    <div ref={ref} className="mb-3">
+      <div className="flex justify-between items-center mb-1.5">
+        <span className="text-xs font-medium" style={{ color: 'var(--text-3)' }}>{name}</span>
+        <span className="text-xs font-semibold tabular-nums" style={{ color }}>{level}%</span>
+      </div>
       <div
-        className="progress-bar-fill"
-        style={{
-          width: visible ? `${level}%` : '0%',
-          background: color,
-          boxShadow: visible ? `0 0 8px ${color.split(',')[0].replace('linear-gradient(90deg, ', '')}66` : 'none',
-        }}
-      />
+        className="h-1 rounded-full overflow-hidden"
+        style={{ background: 'rgba(255,255,255,0.05)' }}
+      >
+        <motion.div
+          className="h-full rounded-full"
+          initial={{ width: 0 }}
+          animate={inView ? { width: `${level}%` } : { width: 0 }}
+          transition={{ duration: 1.1, delay, ease: [0.4, 0, 0.2, 1] }}
+          style={{
+            background: `linear-gradient(90deg, ${color}, ${color}aa)`,
+            boxShadow: `0 0 8px ${color}60`,
+          }}
+        />
+      </div>
     </div>
   )
 }
 
-const skillColors = [
-  'linear-gradient(90deg, #e8547a, #f07ca0)',
-  'linear-gradient(90deg, #c084b4, #d8a8cc)',
-  'linear-gradient(90deg, #e8547a, #c084b4)',
-  'linear-gradient(90deg, #d97706, #f59e0b)',
-  'linear-gradient(90deg, #3a8f6a, #52b38a)',
-  'linear-gradient(90deg, #f07ca0, #fccde1)',
-]
-
-const groupIcons = ['☁️', '🐳', '🔁', '📊']
-const groupColors = [
-  { accent: '#e8547a', bg: 'rgba(232,84,122,0.07)',   border: 'rgba(232,84,122,0.20)' },
-  { accent: '#c084b4', bg: 'rgba(192,132,180,0.07)',  border: 'rgba(192,132,180,0.20)' },
-  { accent: '#d97706', bg: 'rgba(217,119,6,0.07)',    border: 'rgba(217,119,6,0.20)'  },
-  { accent: '#3a8f6a', bg: 'rgba(58,143,106,0.07)',   border: 'rgba(58,143,106,0.20)' },
-]
-
-/* ── Main Section ───────────────────────────────── */
 export default function Skills() {
   const headerRef = useRef<HTMLDivElement>(null)
-  const [headerVisible, setHeaderVisible] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setHeaderVisible(true) },
-      { threshold: 0.2 }
-    )
-    if (headerRef.current) observer.observe(headerRef.current)
-    return () => observer.disconnect()
-  }, [])
+  const headerInView = useInView(headerRef, { once: true, margin: '-80px' })
 
   return (
-    <section id="skills" className="py-16 sm:py-20 md:py-28">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6">
-
+    <section id="skills" className="section" style={{ background: 'rgba(10,14,26,0.5)' }}>
+      <div className="section-inner">
         {/* Header */}
-        <div ref={headerRef} className="mb-10 sm:mb-12">
-          <div className={`section-tag ${headerVisible ? 'animate-fade-up' : 'opacity-0'}`}>Expertise</div>
+        <motion.div
+          ref={headerRef}
+          initial={{ opacity: 0, y: 24 }}
+          animate={headerInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-14"
+        >
+          <div className="section-tag mx-auto w-fit mb-4">Technical Skills</div>
           <h2
-            className={`text-2xl sm:text-3xl md:text-4xl font-semibold mb-3 ${headerVisible ? 'animate-fade-up delay-100' : 'opacity-0'}`}
-            style={{ fontFamily: 'var(--font-serif)' }}
+            className="font-bold mb-4"
+            style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', letterSpacing: '-0.025em' }}
           >
-            Core <span className="gradient-text">Skills</span>
+            Built with the{' '}
+            <span className="grad-text">modern stack</span>
           </h2>
-          <p
-            className={`text-sm max-w-md ${headerVisible ? 'animate-fade-up delay-200' : 'opacity-0'}`}
-            style={{ color: 'var(--text-muted)' }}
-          >
-            Tools and technologies I&apos;m actively learning and practising through projects.
+          <p className="text-sm max-w-lg mx-auto" style={{ color: 'var(--text-3)' }}>
+            A growing toolkit — from cloud infrastructure and containers to AI/ML and backend systems.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Skills List */}
-        <div className="space-y-2 sm:space-y-3 mb-16 sm:mb-20">
-          {coreSkills.map((skill, i) => {
-            const color = skillColors[i % skillColors.length]
-            const isExpert = skill.label === 'Comfortable'
-            return (
-              <SkillRow key={i} skill={skill} index={i} color={color} isExpert={isExpert} />
-            )
-          })}
-        </div>
+        {/* Category grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {categories.map((cat, ci) => (
+            <motion.div
+              key={cat.label}
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.5, delay: ci * 0.07 }}
+              whileHover={{ y: -4, transition: { duration: 0.22 } }}
+              className="p-5 rounded-2xl"
+              style={{
+                background: 'rgba(15,23,42,0.65)',
+                border: `1px solid ${cat.border}`,
+                backdropFilter: 'blur(16px)',
+                cursor: 'default',
+              }}
+            >
+              {/* Card header */}
+              <div className="flex items-center gap-3 mb-5">
+                <div
+                  className="w-9 h-9 rounded-xl flex items-center justify-center text-lg"
+                  style={{ background: cat.glow, border: `1px solid ${cat.border}` }}
+                >
+                  {cat.icon}
+                </div>
+                <div>
+                  <div className="text-sm font-bold" style={{ color: 'var(--text)' }}>{cat.label}</div>
+                  <div className="text-xs" style={{ color: 'var(--text-4)' }}>{cat.skills.length} tools</div>
+                </div>
+                <div
+                  className="ml-auto w-2 h-2 rounded-full"
+                  style={{ background: cat.color, boxShadow: `0 0 8px ${cat.color}` }}
+                />
+              </div>
 
-        {/* Full Stack Header */}
-        <div className="mb-6 sm:mb-8">
-          <h2
-            className="text-xl sm:text-2xl md:text-3xl font-semibold mb-2"
-            style={{ fontFamily: 'var(--font-serif)' }}
-          >
-            Full Stack <span className="gradient-text-violet">Toolbox</span>
-          </h2>
-          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
-            Comprehensive tooling across the DevOps lifecycle.
-          </p>
-        </div>
-
-        {/* 4-box grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-          {stackGroups.map((group, i) => (
-            <StackCard key={i} group={group} index={i} icon={groupIcons[i]} colors={groupColors[i % groupColors.length]} />
+              {/* Skill bars */}
+              <div>
+                {cat.skills.map((sk, si) => (
+                  <SkillBar
+                    key={sk.name}
+                    name={sk.name}
+                    level={sk.level}
+                    color={cat.color}
+                    delay={ci * 0.07 + si * 0.06}
+                  />
+                ))}
+              </div>
+            </motion.div>
           ))}
         </div>
+
+        {/* Tag cloud */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-10 text-center"
+        >
+          <div className="text-xs uppercase tracking-widest mb-4" style={{ color: 'var(--text-4)' }}>
+            Also working with
+          </div>
+          <div className="flex flex-wrap justify-center gap-2">
+            {['React', 'Next.js', 'Nginx', 'cron', 'boto3', 'Pandas', 'NumPy', 'Ansible', 'Vim', 'tmux', 'SSH', 'Prometheus'].map(t => (
+              <span key={t} className="skill-chip">{t}</span>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
-  )
-}
-
-/* ── Skill Row (animated on scroll) ─────────────── */
-function SkillRow({
-  skill, index, color, isExpert,
-}: {
-  skill: { name: string; icon: string; subTools: string; level: number; label: string }
-  index: number; color: string; isExpert: boolean
-}) {
-  const ref     = useRef<HTMLDivElement>(null)
-  const [vis,    setVis]    = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setVis(true) },
-      { threshold: 0.15 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
-  return (
-    <div
-      ref={ref}
-      className="card p-4 sm:p-5 md:p-6"
-      style={{
-        opacity: vis ? 1 : 0,
-        transform: vis ? 'translateX(0)' : 'translateX(-20px)',
-        transition: `opacity 0.5s ease ${index * 80}ms, transform 0.5s ease ${index * 80}ms`,
-        cursor: 'default',
-      }}
-    >
-      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-
-        {/* Icon + Name */}
-        <div className="flex items-center gap-3 sm:w-[260px] shrink-0">
-          <span
-            className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl text-lg shrink-0"
-            style={{ background: 'rgba(232,84,122,0.07)', border: '1px solid rgba(232,84,122,0.18)' }}
-          >
-            {skill.icon}
-          </span>
-          <div className="min-w-0">
-            <div className="text-sm font-semibold truncate" style={{ color: 'var(--text)' }}>
-              {skill.name}
-            </div>
-            <div className="text-xs truncate" style={{ color: 'var(--text-light)' }}>
-              {skill.subTools}
-            </div>
-          </div>
-        </div>
-
-        {/* Progress */}
-        <div className="flex-1 min-w-0">
-          <ProgressBar level={skill.level} color={color} />
-        </div>
-
-        {/* Label */}
-        <div
-          className="text-xs font-semibold px-2.5 py-1 rounded-full shrink-0 self-start sm:self-auto"
-          style={{
-            background: isExpert ? 'rgba(16,185,129,0.1)' : skill.label === 'Learning' ? 'rgba(99,102,241,0.08)' : 'rgba(107,114,128,0.08)',
-            color: isExpert ? 'var(--emerald)' : skill.label === 'Learning' ? 'var(--primary-light)' : 'var(--text-light)',
-            border: `1px solid ${isExpert ? 'rgba(16,185,129,0.3)' : skill.label === 'Learning' ? 'rgba(99,102,241,0.2)' : 'rgba(107,114,128,0.2)'}`,
-          }}
-        >
-          {skill.label}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-/* ── Stack Group Card ────────────────────────────── */
-function StackCard({
-  group, index, icon, colors,
-}: {
-  group: { title: string; tools: string[] }
-  index: number; icon: string
-  colors: { accent: string; bg: string; border: string }
-}) {
-  const ref   = useRef<HTMLDivElement>(null)
-  const [vis, setVis] = useState(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setVis(true) },
-      { threshold: 0.1 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [])
-
-  return (
-    <div
-      ref={ref}
-      className="card p-5 sm:p-6"
-      style={{
-        opacity: vis ? 1 : 0,
-        transform: vis ? 'translateY(0)' : 'translateY(20px)',
-        transition: `opacity 0.5s ease ${index * 100}ms, transform 0.5s ease ${index * 100}ms`,
-        cursor: 'default',
-        borderColor: vis ? colors.border : 'var(--border)',
-      }}
-    >
-      {/* Header */}
-      <div className="flex items-center gap-2 mb-4">
-        <span
-          className="w-8 h-8 flex items-center justify-center rounded-lg text-base shrink-0"
-          style={{ background: colors.bg, border: `1px solid ${colors.border}` }}
-        >
-          {icon}
-        </span>
-        <h3
-          className="text-sm font-semibold"
-          style={{ fontFamily: 'var(--font-serif)', color: colors.accent }}
-        >
-          {group.title}
-        </h3>
-      </div>
-
-      {/* Badges */}
-      <div className="flex flex-wrap gap-1.5 sm:gap-2">
-        {group.tools.map((tool, ti) => (
-          <span
-            key={tool}
-            className="tech-badge"
-            style={{
-              opacity: vis ? 1 : 0,
-              transform: vis ? 'scale(1)' : 'scale(0.8)',
-              transition: `opacity 0.3s ease ${index * 80 + ti * 40}ms, transform 0.3s ease ${index * 80 + ti * 40}ms`,
-            }}
-          >
-            {tool}
-          </span>
-        ))}
-      </div>
-    </div>
   )
 }
