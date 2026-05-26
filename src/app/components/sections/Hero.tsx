@@ -1,9 +1,18 @@
 'use client'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
+import { Mail, Download, ArrowRight, Terminal } from 'lucide-react'
+import { GithubIcon, LinkedinIcon } from '../../../lib/icons'
 import { personal } from '../../../lib/data'
-import { useEffect, useState } from 'react'
 
-/* ── Typewriter hook ─────────────────────────────── */
-function useTypewriter(words: string[], speed = 80, pause = 2000) {
+const ROLES = [
+  'DevOps Engineer',
+  'Cloud Architect',
+  'Backend Developer',
+  'AI/ML Explorer',
+]
+
+function useTypewriter(words: string[], speed = 85, pause = 2200) {
   const [displayed, setDisplayed] = useState('')
   const [wordIdx, setWordIdx]     = useState(0)
   const [charIdx, setCharIdx]     = useState(0)
@@ -11,221 +20,363 @@ function useTypewriter(words: string[], speed = 80, pause = 2000) {
 
   useEffect(() => {
     const current = words[wordIdx]
-    const timeout = setTimeout(() => {
+    const t = setTimeout(() => {
       if (!deleting) {
         setDisplayed(current.slice(0, charIdx + 1))
-        if (charIdx + 1 === current.length) {
-          setTimeout(() => setDeleting(true), pause)
-        } else {
-          setCharIdx(c => c + 1)
-        }
+        if (charIdx + 1 === current.length) setTimeout(() => setDeleting(true), pause)
+        else setCharIdx(c => c + 1)
       } else {
         setDisplayed(current.slice(0, charIdx - 1))
         if (charIdx - 1 === 0) {
           setDeleting(false)
           setWordIdx(w => (w + 1) % words.length)
           setCharIdx(0)
-        } else {
-          setCharIdx(c => c - 1)
-        }
+        } else setCharIdx(c => c - 1)
       }
     }, deleting ? speed / 2 : speed)
-    return () => clearTimeout(timeout)
+    return () => clearTimeout(t)
   }, [charIdx, deleting, wordIdx, words, speed, pause])
 
   return displayed
 }
 
+/* Seeded pseudo-random — same values server + client, no hydration mismatch */
+function seededRand(seed: number): number {
+  const x = Math.sin(seed + 1) * 10000
+  return x - Math.floor(x)
+}
+
+// Only 16 particles (was 30) — pure CSS animation, no Three.js
+const PARTICLES = Array.from({ length: 16 }, (_, i) => {
+  const r0 = seededRand(i * 3)
+  const r1 = seededRand(i * 3 + 1)
+  const r2 = seededRand(i * 3 + 2)
+  const r3 = seededRand(i * 3 + 3)
+  const r4 = seededRand(i * 3 + 4)
+  const r5 = seededRand(i * 3 + 5)
+  const colors = ['rgba(139,92,246,0.5)', 'rgba(6,182,212,0.4)', 'rgba(248,250,252,0.25)']
+  return {
+    x:     r0 * 100,
+    dur:   10 + r1 * 14,
+    del:   r2 * 10,
+    size:  1.5 + r3 * 2,
+    color: colors[Math.floor(r4 * 3)],
+    drift: (r5 - 0.5) * 100,
+  }
+})
+
 export default function Hero() {
-  const roles = ['Aspiring DevOps Engineer', 'Cloud Enthusiast', 'AWS Learner', 'Open Source Explorer']
-  const typed = useTypewriter(roles)
+  const ref  = useRef<HTMLElement>(null)
+  const role = useTypewriter(ROLES)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
+  const y  = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
+  const op = useTransform(scrollYProgress, [0, 0.7], [1, 0])
 
   return (
     <section
       id="hero"
-      className="relative w-full min-h-screen flex items-center overflow-hidden"
+      ref={ref}
+      className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"
       style={{ paddingTop: '5rem' }}
     >
-      {/* ── Blossom Ambient Glow Blobs ── */}
-      <div
-        className="absolute top-[-10%] left-[-5%] w-[520px] h-[520px] rounded-full pointer-events-none animate-glow-pulse animate-float"
-        style={{
-          background: 'radial-gradient(circle, rgba(249,168,201,0.28) 0%, transparent 70%)',
-          filter: 'blur(70px)',
-        }}
-      />
-      <div
-        className="absolute bottom-[5%] right-[-8%] w-[400px] h-[400px] rounded-full pointer-events-none animate-float delay-300"
-        style={{
-          background: 'radial-gradient(circle, rgba(232,84,122,0.16) 0%, transparent 70%)',
-          filter: 'blur(60px)',
-        }}
-      />
-      <div
-        className="absolute top-[40%] right-[18%] w-[260px] h-[260px] rounded-full pointer-events-none animate-float delay-600"
-        style={{
-          background: 'radial-gradient(circle, rgba(192,132,180,0.14) 0%, transparent 70%)',
-          filter: 'blur(50px)',
-        }}
-      />
-      {/* Extra petal-pink blob */}
-      <div
-        className="absolute top-[15%] right-[5%] w-[180px] h-[180px] rounded-full pointer-events-none animate-float delay-400"
-        style={{
-          background: 'radial-gradient(circle, rgba(252,205,225,0.35) 0%, transparent 70%)',
-          filter: 'blur(40px)',
-        }}
-      />
+      {/* ── Lightweight CSS background (replaces Three.js entirely) ── */}
+      <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+        {/* Gradient layers — GPU composited, zero JS overhead */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(139,92,246,0.15) 0%, transparent 65%)',
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: 'radial-gradient(ellipse 60% 50% at 85% 60%, rgba(6,182,212,0.08) 0%, transparent 55%)',
+          }}
+        />
 
-      {/* ── Soft dot grid overlay ── */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.045]"
-        style={{
-          backgroundImage: `radial-gradient(circle, rgba(232,84,122,0.6) 1px, transparent 1px)`,
-          backgroundSize: '32px 32px',
-        }}
-      />
+        {/* Ambient orbs — pure CSS animation, no JS */}
+        <div
+          className="orb animate-pulse-glow"
+          style={{
+            width: '500px', height: '500px',
+            background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)',
+            top: '-10%', left: '50%', transform: 'translateX(-50%)',
+          }}
+        />
+        <div
+          className="orb"
+          style={{
+            width: '320px', height: '320px',
+            background: 'radial-gradient(circle, rgba(6,182,212,0.10) 0%, transparent 70%)',
+            bottom: '10%', right: '-5%',
+            animation: 'pulse-glow 7s ease-in-out 1.5s infinite',
+          }}
+        />
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 w-full py-16 md:py-24 relative z-10">
-        <div className="max-w-3xl">
+        {/* Grid — CSS only, 0 JS */}
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(148,163,184,0.5) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(148,163,184,0.5) 1px, transparent 1px)
+            `,
+            backgroundSize: '64px 64px',
+          }}
+        />
 
-          {/* Availability pill */}
-          <div className="animate-fade-up mb-6 flex flex-wrap gap-3">
+        {/* Floating particles — pure CSS keyframe, zero runtime JS */}
+        <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+          {PARTICLES.map((p, i) => (
             <span
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold"
+              key={i}
               style={{
-                background: 'var(--emerald-bg)',
-                border: '1px solid var(--emerald-border)',
-                color: 'var(--emerald)',
-              }}
-            >
-              <span className="w-2 h-2 rounded-full inline-block animate-pulse-dot" style={{ background: 'var(--emerald)' }} />
-              Available for new opportunities
-            </span>
-            {/* Blossom season badge */}
-            <span
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
-              style={{
-                background: 'rgba(249,168,201,0.15)',
-                border: '1px solid rgba(232,84,122,0.22)',
-                color: 'var(--primary)',
-              }}
-            >
-              🌸 Spring 2026
-            </span>
-          </div>
-
-          {/* Italic quote */}
-          <p
-            className="text-base sm:text-lg md:text-xl mb-4 animate-fade-up delay-100"
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontStyle: 'italic',
-              color: 'var(--primary)',
-              fontWeight: 400,
-            }}
-          >
-            &ldquo;{personal.headline}&rdquo;
-          </p>
-
-          {/* Name */}
-          <h1
-            className="font-semibold tracking-tight mb-3 animate-fade-up delay-200"
-            style={{
-              fontFamily: 'var(--font-serif)',
-              lineHeight: 1.05,
-              fontSize: 'clamp(2.2rem, 7vw, 4rem)',
-              color: 'var(--text)',
-            }}
-          >
-            {personal.name}
-          </h1>
-
-          {/* Typewriter role */}
-          <div
-            className="flex items-center gap-1 mb-6 animate-fade-up delay-300"
-            style={{ minHeight: '2rem' }}
-          >
-            <span
-              className="text-base sm:text-lg md:text-xl font-medium"
-              style={{ color: 'var(--primary-light)' }}
-            >
-              {typed}
-            </span>
-            <span
-              className="inline-block w-[2px] h-5 ml-0.5"
-              style={{
-                background: 'var(--primary)',
-                animation: 'blink 1s step-end infinite',
-              }}
+                position: 'absolute',
+                left: `${p.x}%`,
+                bottom: '-10px',
+                width: `${p.size}px`,
+                height: `${p.size}px`,
+                borderRadius: '50%',
+                background: p.color,
+                animation: `particle-drift ${p.dur}s ease-in ${p.del}s infinite`,
+                '--drift': `${p.drift}px`,
+              } as React.CSSProperties}
             />
-          </div>
-
-          {/* Bio */}
-          <p
-            className="text-sm sm:text-base leading-relaxed mb-8 max-w-xl animate-fade-up delay-400"
-            style={{ color: 'var(--text-muted)' }}
-          >
-            {personal.bio}
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row flex-wrap gap-3 animate-fade-up delay-500">
-            <a
-              href="#experience"
-              className="btn-primary text-center justify-center"
-              onClick={(e) => {
-                e.preventDefault()
-                document.querySelector('#experience')?.scrollIntoView({ behavior: 'smooth' })
-              }}
-            >
-              <span>View My Work</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
-              </svg>
-            </a>
-            <a
-              href="#contact"
-              className="btn-ghost text-center justify-center"
-              onClick={(e) => {
-                e.preventDefault()
-                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
-              }}
-            >
-              Get in Touch
-            </a>
-          </div>
-
-          {/* Quick stat pills */}
-          <div className="flex flex-wrap gap-4 mt-10 animate-fade-up delay-600">
-            {[
-              { value: '3+', label: 'Projects Built' },
-              { value: '2',  label: 'Certifications' },
-              { value: '🏆', label: 'Hackathon Win' },
-            ].map((s, i) => (
-              <div
-                key={i}
-                className="flex flex-col"
-                style={{ borderLeft: '2px solid rgba(232,84,122,0.32)', paddingLeft: '0.75rem' }}
-              >
-                <span
-                  className="text-xl font-bold"
-                  style={{ fontFamily: 'var(--font-serif)', color: 'var(--primary)' }}
-                >
-                  {s.value}
-                </span>
-                <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{s.label}</span>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* Bottom gradient fade to page background */}
+      {/* ── Main content ── */}
+      <motion.div
+        className="section-inner relative z-10 text-center"
+        style={{ y, opacity: op }}
+      >
+        {/* Status pill */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex items-center justify-center mb-6"
+        >
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold"
+            style={{
+              background: 'rgba(6,182,212,0.08)',
+              border: '1px solid rgba(6,182,212,0.2)',
+              color: 'var(--cyan-light)',
+            }}
+          >
+            <span
+              className="w-1.5 h-1.5 rounded-full"
+              style={{
+                background: 'var(--emerald)',
+                boxShadow: '0 0 8px rgba(16,185,129,0.8)',
+                animation: 'pulse-glow 2s ease-in-out infinite',
+              }}
+            />
+            Available for opportunities · Open to work
+          </div>
+        </motion.div>
+
+        {/* Name */}
+        <motion.h1
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="font-extrabold tracking-tighter mb-3"
+          style={{
+            fontSize: 'clamp(2.6rem, 8vw, 5.5rem)',
+            lineHeight: 1.04,
+            letterSpacing: '-0.035em',
+          }}
+        >
+          {personal.name.split(' ').map((word, wi) =>
+            wi < 2 ? (
+              <span key={wi} style={{ color: 'var(--text)' }}>{word} </span>
+            ) : (
+              <span
+                key={wi}
+                style={{
+                  background: 'linear-gradient(135deg, var(--violet-light), var(--cyan-light))',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                {word}
+              </span>
+            )
+          )}
+        </motion.h1>
+
+        {/* Animated role */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex items-center justify-center gap-2 mb-5"
+          style={{ minHeight: '2.5rem' }}
+        >
+          <Terminal size={16} style={{ color: 'var(--violet-light)', flexShrink: 0 }} />
+          <span
+            className="text-lg md:text-xl font-semibold"
+            style={{
+              color: 'var(--violet-light)',
+              fontFamily: "'Fira Code', 'Courier New', monospace",
+            }}
+          >
+            {role}
+          </span>
+          <span
+            style={{
+              display: 'inline-block',
+              width: '2px',
+              height: '1.2em',
+              background: 'var(--cyan)',
+              animation: 'blink 1s step-end infinite',
+            }}
+          />
+        </motion.div>
+
+        {/* Tagline */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="text-lg md:text-xl max-w-2xl mx-auto mb-10"
+          style={{
+            color: 'var(--text-3)',
+            lineHeight: 1.65,
+            fontWeight: 400,
+          }}
+        >
+          Building scalable systems, exploring AI,{' '}
+          <span style={{ color: 'var(--text-2)' }}>and crafting cloud-native solutions</span> — one commit at a time.
+        </motion.p>
+
+        {/* CTA buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-10"
+        >
+          <a
+            href="#projects"
+            onClick={e => { e.preventDefault(); document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }) }}
+            className="btn btn-primary"
+          >
+            <span>View Projects</span>
+            <ArrowRight size={16} />
+          </a>
+          <a
+            href="/resume.pdf"
+            download
+            className="btn btn-outline"
+          >
+            <Download size={15} />
+            <span>Download Resume</span>
+          </a>
+        </motion.div>
+
+        {/* Social links */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="flex items-center justify-center gap-4"
+        >
+          {[
+            { icon: GithubIcon,   href: personal.github,   label: 'GitHub'   },
+            { icon: LinkedinIcon, href: personal.linkedin,  label: 'LinkedIn' },
+            { icon: Mail,         href: `mailto:${personal.email}`, label: 'Email' },
+          ].map(({ icon: Icon, href, label }) => (
+            <a
+              key={label}
+              href={href}
+              target={href.startsWith('http') ? '_blank' : undefined}
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200"
+              style={{
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(148,163,184,0.1)',
+                color: 'var(--text-3)',
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.background = 'rgba(139,92,246,0.12)'
+                ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(139,92,246,0.35)'
+                ;(e.currentTarget as HTMLElement).style.color = 'var(--violet-light)'
+                ;(e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)'
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)'
+                ;(e.currentTarget as HTMLElement).style.borderColor = 'rgba(148,163,184,0.1)'
+                ;(e.currentTarget as HTMLElement).style.color = 'var(--text-3)'
+                ;(e.currentTarget as HTMLElement).style.transform = 'translateY(0)'
+              }}
+            >
+              <Icon size={17} />
+            </a>
+          ))}
+        </motion.div>
+
+        {/* Quick stats row */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="flex items-center justify-center gap-8 mt-12 flex-wrap"
+        >
+          {[
+            { val: '3+', label: 'Projects' },
+            { val: '2',  label: 'AWS Certs' },
+            { val: '1',  label: 'Hackathon Win' },
+          ].map(s => (
+            <div key={s.label} className="text-center">
+              <div
+                className="text-2xl font-bold"
+                style={{
+                  background: 'linear-gradient(135deg, var(--violet-light), var(--cyan-light))',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                }}
+              >
+                {s.val}
+              </div>
+              <div className="text-xs font-medium" style={{ color: 'var(--text-4)' }}>
+                {s.label}
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      </motion.div>
+
+      {/* Bottom fade */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-28 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
         style={{ background: 'linear-gradient(to top, var(--bg), transparent)' }}
       />
+
+      {/* Scroll hint */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.0 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        style={{ color: 'var(--text-4)', fontSize: '0.7rem', letterSpacing: '0.1em' }}
+      >
+        <span className="uppercase tracking-widest">scroll</span>
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          style={{
+            width: '1px',
+            height: '30px',
+            background: 'linear-gradient(180deg, var(--violet), transparent)',
+          }}
+        />
+      </motion.div>
     </section>
   )
 }

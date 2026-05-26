@@ -1,21 +1,31 @@
 import type { Metadata, Viewport } from 'next'
+import { Inter } from 'next/font/google'
 import './globals.css'
+import CustomCursor from './components/ui/CustomCursor'
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+  variable: '--font-inter',
+})
 
 export const metadata: Metadata = {
-  title: 'Subash Chandra Bose A — Aspiring DevOps Engineer',
+  title: 'Subash Chandra Bose A — DevOps & Cloud Engineer',
   description:
-    'Portfolio of Subash Chandra Bose A, a fresher from Chennai, India — learning DevOps, cloud computing, Docker, CI/CD, and AWS through hands-on projects and certifications.',
+    'Elite developer portfolio of Subash Chandra Bose A — MCA graduate specializing in DevOps, Cloud Architecture, Backend Development, and AI/ML. AWS certified, Docker proficient, CI/CD builder.',
   keywords: [
-    'Aspiring DevOps Engineer', 'Fresher', 'AWS Certified', 'Docker',
-    'CI/CD', 'Cloud Computing', 'GitHub Actions',
-    'Subash Chandra Bose', 'Portfolio', 'Chennai India',
+    'DevOps Engineer', 'Cloud Engineer', 'MCA Graduate', 'AWS Certified',
+    'Docker', 'Kubernetes', 'CI/CD', 'Python', 'Node.js', 'Terraform',
+    'GitHub Actions', 'Subash Chandra Bose', 'Portfolio', 'Chennai',
   ],
   authors: [{ name: 'Subash Chandra Bose A' }],
   openGraph: {
-    title: 'Subash Chandra Bose A — Aspiring DevOps Engineer',
-    description: 'Fresher exploring DevOps, cloud technologies, containers, and CI/CD automation.',
+    title: 'Subash Chandra Bose A — DevOps & Cloud Engineer',
+    description: 'MCA graduate building cloud-native systems, exploring AI, and shipping scalable solutions.',
     type: 'website',
   },
+  robots: 'index, follow',
 }
 
 export const viewport: Viewport = {
@@ -24,12 +34,11 @@ export const viewport: Viewport = {
   maximumScale: 5,
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body style={{ overflowX: 'hidden', maxWidth: '100vw' }}>
+    <html lang="en" className={inter.variable}>
+      <body className="noise" style={{ overflowX: 'hidden', maxWidth: '100vw' }}>
+        <CustomCursor />
         {children}
       </body>
     </html>
