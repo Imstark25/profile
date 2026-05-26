@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
 
 /* ══════════════════════════════════════════════════════
@@ -64,7 +63,7 @@
   --t-slow:  all 0.45s var(--ease);
 
   /* Font */
-  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  --font: var(--font-inter, 'Inter', system-ui, -apple-system, sans-serif);
 }
 
 /* ── Reset ─────────────────────────────────────────── */
@@ -167,7 +166,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 /* ── Section layout ─────────────────────────────────── */
-.section { padding: 6rem 0; }
+.section { padding: 6rem 0; content-visibility: auto; contain-intrinsic-size: 0 800px; }
 .section-inner { max-width: 72rem; margin: 0 auto; padding: 0 1.5rem; }
 .section-tag {
   display: inline-flex;
@@ -383,4 +382,19 @@ h1,h2,h3,h4,h5,h6 {
 /* Overflow guard */
 main, section, header, footer, nav {
   max-width: 100vw;
+}
+
+/* ── Perf: reduce-motion kills all animations instantly ─────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Perf: GPU layer hint for animated elements ────────────── */
+.orb, .scroll-progress, canvas {
+  will-change: transform;
+  transform: translateZ(0);
 }
