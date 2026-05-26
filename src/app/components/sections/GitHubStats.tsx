@@ -123,8 +123,6 @@ export default function GitHubStats() {
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const [count] = useState(REAL_CONTRIBUTIONS)
 
-
-
   return (
     <section id="github" className="section" ref={ref}>
       <div className="section-inner">
@@ -180,7 +178,7 @@ export default function GitHubStats() {
             </span>
           </div>
 
-          <ContributionGrid count={count} />
+          <ContributionGrid />
         </motion.div>
 
         {/* CTA */}
