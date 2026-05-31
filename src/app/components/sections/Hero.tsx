@@ -40,27 +40,28 @@ function useTypewriter(words: string[], speed = 85, pause = 2200) {
   return displayed
 }
 
-/* Seeded pseudo-random — same values server + client */
+/* Seeded pseudo-random — same values server + client, no hydration mismatch */
 function seededRand(seed: number): number {
   const x = Math.sin(seed + 1) * 10000
   return x - Math.floor(x)
 }
 
-const PARTICLES = Array.from({ length: 30 }, (_, i) => {
+// Only 16 particles (was 30) — pure CSS animation, no Three.js
+const PARTICLES = Array.from({ length: 16 }, (_, i) => {
   const r0 = seededRand(i * 3)
   const r1 = seededRand(i * 3 + 1)
   const r2 = seededRand(i * 3 + 2)
   const r3 = seededRand(i * 3 + 3)
   const r4 = seededRand(i * 3 + 4)
   const r5 = seededRand(i * 3 + 5)
-  const colors = ['rgba(139,92,246,0.6)', 'rgba(6,182,212,0.5)', 'rgba(248,250,252,0.3)']
+  const colors = ['rgba(139,92,246,0.5)', 'rgba(6,182,212,0.4)', 'rgba(248,250,252,0.25)']
   return {
     x:     r0 * 100,
-    dur:   8 + r1 * 12,
-    del:   r2 * 8,
-    size:  1.5 + r3 * 2.5,
+    dur:   10 + r1 * 14,
+    del:   r2 * 10,
+    size:  1.5 + r3 * 2,
     color: colors[Math.floor(r4 * 3)],
-    drift: (r5 - 0.5) * 120,
+    drift: (r5 - 0.5) * 100,
   }
 })
 
@@ -68,7 +69,7 @@ export default function Hero() {
   const ref  = useRef<HTMLElement>(null)
   const role = useTypewriter(ROLES)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
-  const y  = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+  const y  = useTransform(scrollYProgress, [0, 1], ['0%', '20%'])
   const op = useTransform(scrollYProgress, [0, 0.7], [1, 0])
 
   return (
@@ -78,55 +79,44 @@ export default function Hero() {
       className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"
       style={{ paddingTop: '5rem' }}
     >
-      {/* ── Mesh gradient background ── */}
+      {/* ── Lightweight CSS background (replaces Three.js entirely) ── */}
       <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
-        {/* Deep gradient base */}
+        {/* Gradient layers — GPU composited, zero JS overhead */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(139,92,246,0.18) 0%, transparent 65%)',
+            background: 'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(139,92,246,0.15) 0%, transparent 65%)',
           }}
         />
         <div
           className="absolute inset-0"
           style={{
-            background: 'radial-gradient(ellipse 60% 50% at 85% 60%, rgba(6,182,212,0.10) 0%, transparent 55%)',
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'radial-gradient(ellipse 70% 60% at 15% 80%, rgba(139,92,246,0.08) 0%, transparent 55%)',
+            background: 'radial-gradient(ellipse 60% 50% at 85% 60%, rgba(6,182,212,0.08) 0%, transparent 55%)',
           }}
         />
 
-        {/* Glow orbs */}
-        <motion.div
+        {/* Ambient orbs — pure CSS animation, no JS */}
+        <div
           className="orb animate-pulse-glow"
-          animate={{ scale: [1, 1.12, 1], opacity: [0.4, 0.65, 0.4] }}
-          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
           style={{
-            width: '600px', height: '600px',
-            background: 'radial-gradient(circle, rgba(139,92,246,0.14) 0%, transparent 70%)',
-            top: '-15%', left: '50%', transform: 'translateX(-50%)',
-            filter: 'blur(60px)',
+            width: '500px', height: '500px',
+            background: 'radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%)',
+            top: '-10%', left: '50%', transform: 'translateX(-50%)',
           }}
         />
-        <motion.div
-          animate={{ scale: [1, 1.08, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+        <div
+          className="orb"
           style={{
-            position: 'absolute',
-            width: '400px', height: '400px',
-            background: 'radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%)',
+            width: '320px', height: '320px',
+            background: 'radial-gradient(circle, rgba(6,182,212,0.10) 0%, transparent 70%)',
             bottom: '10%', right: '-5%',
-            filter: 'blur(60px)',
+            animation: 'pulse-glow 7s ease-in-out 1.5s infinite',
           }}
         />
 
-        {/* Grid lines */}
+        {/* Grid — CSS only, 0 JS */}
         <div
-          className="absolute inset-0 opacity-[0.025]"
+          className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage: `
               linear-gradient(rgba(148,163,184,0.5) 1px, transparent 1px),
@@ -136,8 +126,8 @@ export default function Hero() {
           }}
         />
 
-        {/* Floating particles */}
-        <div className="absolute inset-0 overflow-hidden">
+        {/* Floating particles — pure CSS keyframe, zero runtime JS */}
+        <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
           {PARTICLES.map((p, i) => (
             <span
               key={i}
@@ -166,7 +156,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="flex items-center justify-center mb-6"
         >
           <div
@@ -191,9 +181,9 @@ export default function Hero() {
 
         {/* Name */}
         <motion.h1
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           className="font-extrabold tracking-tighter mb-3"
           style={{
             fontSize: 'clamp(2.6rem, 8vw, 5.5rem)',
@@ -202,9 +192,7 @@ export default function Hero() {
           }}
         >
           {personal.name.split(' ').map((word, wi) =>
-            wi === 0 ? (
-              <span key={wi} style={{ color: 'var(--text)' }}>{word} </span>
-            ) : wi === 1 ? (
+            wi < 2 ? (
               <span key={wi} style={{ color: 'var(--text)' }}>{word} </span>
             ) : (
               <span
@@ -223,9 +211,9 @@ export default function Hero() {
 
         {/* Animated role */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
           className="flex items-center justify-center gap-2 mb-5"
           style={{ minHeight: '2.5rem' }}
         >
@@ -252,9 +240,9 @@ export default function Hero() {
 
         {/* Tagline */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
           className="text-lg md:text-xl max-w-2xl mx-auto mb-10"
           style={{
             color: 'var(--text-3)',
@@ -268,9 +256,9 @@ export default function Hero() {
 
         {/* CTA buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
           className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-10"
         >
           <a
@@ -293,7 +281,7 @@ export default function Hero() {
 
         {/* Social links */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
           className="flex items-center justify-center gap-4"
@@ -335,9 +323,9 @@ export default function Hero() {
 
         {/* Quick stats row */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.65 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
           className="flex items-center justify-center gap-8 mt-12 flex-wrap"
         >
           {[
@@ -374,7 +362,7 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
+        transition={{ delay: 1.0 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         style={{ color: 'var(--text-4)', fontSize: '0.7rem', letterSpacing: '0.1em' }}
       >

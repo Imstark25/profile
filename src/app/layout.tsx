@@ -1,5 +1,14 @@
 import type { Metadata, Viewport } from 'next'
+import { Inter } from 'next/font/google'
 import './globals.css'
+import CustomCursor from './components/ui/CustomCursor'
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+  variable: '--font-inter',
+})
 
 export const metadata: Metadata = {
   title: 'Subash Chandra Bose A — DevOps & Cloud Engineer',
@@ -27,12 +36,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
+    <html lang="en" className={inter.variable}>
       <body className="noise" style={{ overflowX: 'hidden', maxWidth: '100vw' }}>
+        <CustomCursor />
         {children}
       </body>
     </html>

@@ -46,26 +46,32 @@ function ContributionGrid() {
         {grid.map((week, wi) => (
           <div key={wi} className="flex flex-col gap-1">
             {week.map((lvl, di) => (
-              <motion.div
+              <div
                 key={di}
-                initial={{ opacity: 0, scale: 0.5 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: (wi * 7 + di) * 0.002, duration: 0.3 }}
-                className="w-3 h-3 rounded-sm"
+                className="w-3 h-3 rounded-sm contrib-cell"
                 style={{
                   background: colors[lvl],
-                  transition: 'background 0.2s ease',
+                  animationDelay: `${(wi * 7 + di) * 4}ms`,
                 }}
-                whileHover={{ scale: 1.5 }}
               />
             ))}
           </div>
         ))}
       </div>
+      {/* Single CSS rule handles all 182 cells — zero JS overhead */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        .contrib-cell {
+          opacity: 0;
+          animation: cell-in 0.3s ease forwards;
+        }
+        @keyframes cell-in {
+          to { opacity: 1; }
+        }
+      `}} />
     </div>
   )
 }
+
 
 export default function GitHubStats() {
   return (

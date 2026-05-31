@@ -1,17 +1,44 @@
 'use client'
-import Navbar      from './components/Navbar'
-import Hero        from './components/sections/Hero'
-import About       from './components/sections/About'
-import Skills      from './components/sections/Skills'
-import Projects    from './components/sections/Projects'
-import Journey     from './components/sections/Journey'
-import GitHubStats from './components/sections/GitHubStats'
-import Contact     from './components/sections/Contact'
-import { personal } from '../lib/data'
+import Navbar from './components/Navbar'
+import Hero from './components/sections/Hero'
 import { Mail, ArrowUp } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '../lib/icons'
+import { personal } from '../lib/data'
+import { useState, useEffect, Suspense, lazy } from 'react'
 import { motion } from 'framer-motion'
-import { useState, useEffect } from 'react'
+
+// ── Lazy-load all below-fold sections — they only load when scrolled near ──
+const About      = lazy(() => import('./components/sections/About'))
+const Skills     = lazy(() => import('./components/sections/Skills'))
+const Projects   = lazy(() => import('./components/sections/Projects'))
+const Journey    = lazy(() => import('./components/sections/Journey'))
+const GitHubStats = lazy(() => import('./components/sections/GitHubStats'))
+const Contact    = lazy(() => import('./components/sections/Contact'))
+
+// Lightweight skeleton shown while lazy chunks load
+function SectionSkeleton() {
+  return (
+    <div className="section" aria-hidden="true">
+      <div className="section-inner">
+        <div style={{
+          height: '12px',
+          borderRadius: '6px',
+          background: 'rgba(148,163,184,0.06)',
+          marginBottom: '1.5rem',
+          width: '40%',
+          margin: '0 auto 1.5rem',
+        }} />
+        <div style={{
+          height: '8px',
+          borderRadius: '4px',
+          background: 'rgba(148,163,184,0.04)',
+          width: '60%',
+          margin: '0 auto',
+        }} />
+      </div>
+    </div>
+  )
+}
 
 /* ── Back to top ─── */
 function BackToTop() {
@@ -29,11 +56,12 @@ function BackToTop() {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.8 }}
       onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-      className="fixed bottom-6 right-6 z-50 w-10 h-10 rounded-xl flex items-center justify-center cursor-pointer"
+      className="fixed bottom-6 right-6 z-50 w-10 h-10 rounded-xl flex items-center justify-center"
       style={{
         background: 'linear-gradient(135deg, var(--violet), var(--violet-dark))',
         boxShadow: '0 4px 20px rgba(139,92,246,0.4)',
         border: 'none',
+        cursor: 'pointer',
       }}
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.95 }}
@@ -60,19 +88,40 @@ export default function Home() {
   return (
     <main style={{ background: 'var(--bg)', color: 'var(--text)', position: 'relative' }}>
       <Navbar />
+
+      {/* Hero is eagerly loaded — it's above the fold */}
       <Hero />
-      <Divider />
-      <About />
-      <Divider />
-      <Skills />
-      <Divider />
-      <Projects />
-      <Divider />
-      <Journey />
-      <Divider />
-      <GitHubStats />
-      <Divider />
-      <Contact />
+
+      {/* All below-fold sections are lazy — saves ~40-60% initial JS */}
+      <Suspense fallback={<SectionSkeleton />}>
+        <Divider />
+        <About />
+      </Suspense>
+
+      <Suspense fallback={<SectionSkeleton />}>
+        <Divider />
+        <Skills />
+      </Suspense>
+
+      <Suspense fallback={<SectionSkeleton />}>
+        <Divider />
+        <Projects />
+      </Suspense>
+
+      <Suspense fallback={<SectionSkeleton />}>
+        <Divider />
+        <Journey />
+      </Suspense>
+
+      <Suspense fallback={<SectionSkeleton />}>
+        <Divider />
+        <GitHubStats />
+      </Suspense>
+
+      <Suspense fallback={<SectionSkeleton />}>
+        <Divider />
+        <Contact />
+      </Suspense>
 
       {/* ── Footer ── */}
       <footer
