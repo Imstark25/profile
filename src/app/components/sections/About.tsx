@@ -1,258 +1,211 @@
 'use client'
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
-import { Cloud, Container, Terminal, Brain, Server, Sparkles } from 'lucide-react'
-import { personal, stats } from '../../../lib/data'
+import { personal } from '../../../lib/data'
 
-const pillars = [
+const HIGHLIGHTS = [
   {
-    icon: Cloud,
-    title: 'Cloud & AWS',
-    desc: 'Hands-on with EC2, S3, IAM, Lambda — building practical cloud environments.',
-    color: 'var(--cyan)',
-    glow: 'rgba(6,182,212,0.12)',
-    border: 'rgba(6,182,212,0.20)',
+    icon: '☁️',
+    title: 'Salesforce Administrator',
+    desc: 'Built a full Student Admission CRM system using Salesforce — custom objects, Flow automation, reports, and role-based access.',
+    color: '#00A1E0',
+    glow: 'rgba(0,161,224,0.12)',
+    border: 'rgba(0,161,224,0.22)',
   },
   {
-    icon: Container,
-    title: 'DevOps',
-    desc: 'Docker, CI/CD pipelines, GitHub Actions — automating everything from code to deploy.',
-    color: 'var(--violet-light)',
-    glow: 'rgba(139,92,246,0.12)',
-    border: 'rgba(139,92,246,0.22)',
+    icon: '⚡',
+    title: 'AWS Certified',
+    desc: 'AWS Certified Solutions Architect – Associate. Hands-on with EC2, S3, IAM, Lambda, VPC, and infrastructure automation with Terraform.',
+    color: '#FF9900',
+    glow: 'rgba(255,153,0,0.12)',
+    border: 'rgba(255,153,0,0.22)',
   },
   {
-    icon: Terminal,
-    title: 'Linux & Python',
-    desc: 'Comfortable in the terminal — scripting, automation, and system-level work.',
-    color: '#10b981',
-    glow: 'rgba(16,185,129,0.10)',
-    border: 'rgba(16,185,129,0.20)',
-  },
-  {
-    icon: Brain,
-    title: 'AI / ML',
-    desc: 'Databricks Gen AI certified — exploring ML models, embeddings, and LLM applications.',
-    color: '#f59e0b',
-    glow: 'rgba(245,158,11,0.10)',
-    border: 'rgba(245,158,11,0.20)',
-  },
-  {
-    icon: Server,
-    title: 'Backend Dev',
-    desc: 'Node.js, REST APIs, databases — building the invisible engines behind great products.',
-    color: '#f43f5e',
-    glow: 'rgba(244,63,94,0.10)',
-    border: 'rgba(244,63,94,0.20)',
-  },
-  {
-    icon: Sparkles,
-    title: 'Always Learning',
-    desc: 'Kubernetes, Terraform, Grafana — constantly expanding the depth of the stack.',
-    color: 'var(--violet-light)',
-    glow: 'rgba(139,92,246,0.10)',
-    border: 'rgba(139,92,246,0.18)',
+    icon: '📱',
+    title: 'Flutter Developer',
+    desc: 'Developed cross-platform mobile applications with Flutter and Dart during internship at Coreverse Technologies, integrating Firebase backend.',
+    color: '#54C5F8',
+    glow: 'rgba(84,197,248,0.12)',
+    border: 'rgba(84,197,248,0.22)',
   },
 ]
 
-function StatCard({ value, label, index }: { value: string; label: string; index: number }) {
-  const colors = [
-    { from: '#8B5CF6', to: '#a78bfa' },
-    { from: '#06B6D4', to: '#22d3ee' },
-    { from: '#10b981', to: '#34d399' },
-    { from: '#f59e0b', to: '#fbbf24' },
-  ]
-  const c = colors[index % colors.length]
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1, duration: 0.5, type: 'spring', stiffness: 200 }}
-      whileHover={{ y: -4, transition: { duration: 0.2 } }}
-      className="p-5 rounded-2xl text-center"
-      style={{
-        background: 'rgba(15,23,42,0.7)',
-        border: '1px solid rgba(148,163,184,0.08)',
-        backdropFilter: 'blur(16px)',
-      }}
-    >
-      <div
-        className="text-3xl font-extrabold mb-1 tracking-tight"
-        style={{
-          background: `linear-gradient(135deg, ${c.from}, ${c.to})`,
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-        }}
-      >
-        {value}
-      </div>
-      <div className="text-xs font-medium" style={{ color: 'var(--text-4)' }}>
-        {label}
-      </div>
-    </motion.div>
-  )
-}
-
 export default function About() {
-  const ref = useRef<HTMLDivElement>(null)
+  const ref    = useRef<HTMLDivElement>(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
     <section id="about" className="section">
       <div className="section-inner">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
-        {/* Header */}
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <div className="section-tag mx-auto w-fit mb-4">About me</div>
-          <h2
-            className="font-bold mb-4"
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', letterSpacing: '-0.025em' }}
-          >
-            Turning curiosity into{' '}
-            <span className="grad-text">working systems</span>
-          </h2>
-          <p
-            className="text-base max-w-xl mx-auto leading-relaxed"
-            style={{ color: 'var(--text-3)' }}
-          >
-            {personal.summary}
-          </p>
-        </motion.div>
-
-        {/* Two-column layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
-
-          {/* Left — bio text */}
+          {/* Left: Text */}
           <motion.div
-            initial={{ opacity: 0, x: -32 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
+            ref={ref}
+            initial={{ opacity: 0, x: -28 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.65 }}
           >
-            {/* Terminal-style intro card */}
-            <div
-              className="rounded-2xl p-6 mb-6 font-mono text-sm"
+            <div className="section-tag mb-5">About Me</div>
+
+            <h2
+              className="font-bold mb-6"
+              style={{ fontSize: 'clamp(1.9rem, 4vw, 2.8rem)', letterSpacing: '-0.025em', lineHeight: 1.1 }}
+            >
+              From{' '}
+              <span style={{ color: '#54C5F8' }}>Cloud & Flutter</span>{' '}
+              to{' '}
+              <span style={{ color: '#00A1E0' }}>Salesforce CRM</span>
+            </h2>
+
+            <div className="space-y-4 text-sm leading-relaxed" style={{ color: 'var(--text-3)' }}>
+              <p>
+                I&apos;m <span style={{ color: 'var(--text)', fontWeight: 600 }}>Subash Chandra Bose A</span> — an MCA graduate from Kongu Engineering College, Chennai.
+                My journey started with cloud computing and mobile development, and has since expanded into{' '}
+                <span style={{ color: '#00A1E0', fontWeight: 600 }}>Salesforce CRM administration</span> — where I discovered a passion for building systems that directly impact business workflows.
+              </p>
+              <p>
+                As a <span style={{ color: '#FF9900', fontWeight: 600 }}>Cloud & Flutter Developer Intern</span> at Coreverse Technologies, I worked on real AWS deployments and Flutter mobile apps — giving me hands-on production experience that goes beyond coursework.
+              </p>
+              <p>
+                My <span style={{ color: '#FF9900', fontWeight: 600 }}>AWS Certified Solutions Architect – Associate</span> credential, paired with my final-year Salesforce CRM project, positions me uniquely at the intersection of cloud infrastructure and CRM platforms — ideal for modern enterprise roles.
+              </p>
+              <p>
+                I hold a strong belief that the best engineers understand both the business context and the technical stack. That&apos;s what drives my interest in Salesforce: bridging CRM and cloud.
+              </p>
+            </div>
+
+            {/* MCA badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.35 }}
+              className="mt-8 inline-flex items-center gap-3 px-4 py-3 rounded-xl"
               style={{
-                background: 'rgba(9,12,26,0.9)',
-                border: '1px solid rgba(148,163,184,0.09)',
+                background: 'rgba(167,139,250,0.07)',
+                border: '1px solid rgba(167,139,250,0.2)',
               }}
             >
-              <div className="flex items-center gap-2 mb-4">
-                <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#f43f5e' }} />
-                <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#f59e0b' }} />
-                <span className="w-2.5 h-2.5 rounded-full" style={{ background: '#10b981' }} />
-                <span className="ml-2 text-xs" style={{ color: 'var(--text-4)' }}>whoami.sh</span>
+              <span className="text-xl">🎓</span>
+              <div>
+                <div className="text-sm font-bold" style={{ color: 'var(--text)' }}>Master of Computer Applications (MCA)</div>
+                <div className="text-xs" style={{ color: 'var(--text-4)' }}>Kongu Engineering College · 2023 – 2025 · Chennai, India</div>
               </div>
-              <div style={{ color: 'var(--cyan-light)', lineHeight: 1.9 }}>
-                <span style={{ color: 'var(--text-4)' }}>$ </span>
-                <span style={{ color: '#a78bfa' }}>cat</span>
-                {' '}about.json<br />
-                <span style={{ color: 'var(--text-4)' }}>{'{'}</span>
-                <br />
-                <span style={{ color: 'var(--text-4)', paddingLeft: '1rem' }}>&quot;name&quot;: </span>
-                <span style={{ color: '#34d399' }}>&quot;{personal.name}&quot;</span>,<br />
-                <span style={{ color: 'var(--text-4)', paddingLeft: '1rem' }}>&quot;role&quot;: </span>
-                <span style={{ color: '#34d399' }}>&quot;MCA Graduate&quot;</span>,<br />
-                <span style={{ color: 'var(--text-4)', paddingLeft: '1rem' }}>&quot;focus&quot;: </span>
-                <span style={{ color: '#34d399' }}>&quot;DevOps + Cloud + AI&quot;</span>,<br />
-                <span style={{ color: 'var(--text-4)', paddingLeft: '1rem' }}>&quot;location&quot;: </span>
-                <span style={{ color: '#34d399' }}>&quot;{personal.location}&quot;</span>,<br />
-                <span style={{ color: 'var(--text-4)', paddingLeft: '1rem' }}>&quot;status&quot;: </span>
-                <span style={{ color: '#10b981' }}>&quot;Open to Work ✓&quot;</span><br />
-                <span style={{ color: 'var(--text-4)' }}>{'}'}</span>
-              </div>
-            </div>
+            </motion.div>
 
-            <p className="text-base leading-relaxed mb-4" style={{ color: 'var(--text-3)' }}>
-              I&apos;m a fresher MCA graduate from Chennai with a deep interest in
-              {' '}<span style={{ color: 'var(--violet-light)', fontWeight: 500 }}>cloud infrastructure</span>,
-              {' '}<span style={{ color: 'var(--cyan-light)', fontWeight: 500 }}>DevOps practices</span>, and
-              {' '}<span style={{ color: '#f59e0b', fontWeight: 500 }}>AI/ML applications</span>.
-            </p>
-            <p className="text-base leading-relaxed mb-6" style={{ color: 'var(--text-3)' }}>
-              My journey started with curiosity about how the internet works — and evolved into
-              building CI/CD pipelines, containerized apps, and cloud environments. I learn by
-              building, breaking, and rebuilding until things work beautifully.
-            </p>
-
-            {/* Philosophy bullets */}
-            <div className="space-y-3">
+            {/* Key facts */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.45 }}
+              className="mt-4 grid grid-cols-2 gap-3"
+            >
               {[
-                'Ship fast, learn faster — iterate until it&apos;s right',
-                'Infrastructure as code is poetry in motion',
-                'Every system is a design problem first',
-              ].map((t, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <span
-                    className="mt-1 w-4 h-4 rounded-full flex items-center justify-center shrink-0 text-xs font-bold"
-                    style={{ background: 'rgba(139,92,246,0.15)', color: 'var(--violet-light)' }}
-                  >
-                    ✓
-                  </span>
-                  <span
-                    dangerouslySetInnerHTML={{ __html: t }}
-                    className="text-sm"
-                    style={{ color: 'var(--text-3)' }}
-                  />
+                { label: 'Location',       value: 'Chennai, India',     icon: '📍' },
+                { label: 'Availability',   value: 'Immediately',         icon: '✅' },
+                { label: 'Role Target',    value: '2026 Graduate Jobs',  icon: '🎯' },
+                { label: 'AWS Cert',       value: 'SAA-C03 Certified',   icon: '⚡' },
+              ].map(fact => (
+                <div
+                  key={fact.label}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg"
+                  style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(148,163,184,0.07)' }}
+                >
+                  <span className="text-sm">{fact.icon}</span>
+                  <div>
+                    <div className="text-xs" style={{ color: 'var(--text-4)' }}>{fact.label}</div>
+                    <div className="text-xs font-semibold" style={{ color: 'var(--text-2)' }}>{fact.value}</div>
+                  </div>
                 </div>
               ))}
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* Right — pillar cards */}
+          {/* Right: Highlight cards */}
           <motion.div
-            initial={{ opacity: 0, x: 32 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.65 }}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+            initial={{ opacity: 0, x: 28 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.65, delay: 0.1 }}
+            className="space-y-4"
           >
-            {pillars.map((p, i) => (
+            {HIGHLIGHTS.map((h, i) => (
               <motion.div
-                key={p.title}
+                key={h.title}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.45 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.2 + i * 0.12 }}
                 whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="p-4 rounded-xl cursor-default"
+                className="p-5 rounded-2xl relative overflow-hidden"
                 style={{
-                  background: p.glow,
-                  border: `1px solid ${p.border}`,
-                  backdropFilter: 'blur(12px)',
+                  background: 'rgba(13,19,35,0.7)',
+                  border: `1px solid ${h.border}`,
+                  backdropFilter: 'blur(20px)',
                 }}
               >
-                <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center mb-3"
-                  style={{ background: `${p.glow}`, border: `1px solid ${p.border}` }}
-                >
-                  <p.icon size={16} style={{ color: p.color }} />
-                </div>
-                <div className="text-sm font-semibold mb-1" style={{ color: 'var(--text-2)' }}>
-                  {p.title}
-                </div>
-                <div className="text-xs leading-relaxed" style={{ color: 'var(--text-4)' }}>
-                  {p.desc}
+                {/* Glow */}
+                <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 80% 50% at 0% 50%, ${h.glow}, transparent)` }} />
+
+                <div className="relative flex items-start gap-4">
+                  <div
+                    className="w-11 h-11 rounded-xl flex items-center justify-center text-xl flex-shrink-0"
+                    style={{ background: h.glow, border: `1px solid ${h.border}` }}
+                  >
+                    {h.icon}
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold mb-1.5" style={{ color: h.color }}>{h.title}</div>
+                    <div className="text-xs leading-relaxed" style={{ color: 'var(--text-3)' }}>{h.desc}</div>
+                  </div>
                 </div>
               </motion.div>
             ))}
-          </motion.div>
-        </div>
 
-        {/* Stats row */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {stats.map((s, i) => (
-            <StatCard key={i} value={s.value} label={s.label} index={i} />
-          ))}
+            {/* What I'm looking for card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.56 }}
+              className="p-5 rounded-2xl"
+              style={{
+                background: 'linear-gradient(135deg, rgba(0,161,224,0.06), rgba(84,197,248,0.04))',
+                border: '1px solid rgba(0,161,224,0.18)',
+              }}
+            >
+              <div className="text-xs font-bold uppercase tracking-wide mb-3" style={{ color: '#00A1E0' }}>
+                🎯 Targeting 2026 Graduate Roles
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  'Salesforce Admin', 'Salesforce Developer',
+                  'Cloud Engineer', 'AWS Associate',
+                  'Flutter Developer', 'DevOps Engineer',
+                ].map(role => (
+                  <span
+                    key={role}
+                    className="px-2.5 py-1 rounded-full text-xs font-medium"
+                    style={{ background: 'rgba(0,161,224,0.08)', border: '1px solid rgba(0,161,224,0.2)', color: '#54C5F8' }}
+                  >
+                    {role}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            {personal.location && (
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: 0.65 }}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl"
+                style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.18)' }}
+              >
+                <span className="w-2 h-2 rounded-full" style={{ background: '#10b981', boxShadow: '0 0 8px rgba(16,185,129,0.8)' }} />
+                <span className="text-xs font-semibold" style={{ color: '#10b981' }}>
+                  Open to Work · Available Immediately · {personal.location}
+                </span>
+              </motion.div>
+            )}
+          </motion.div>
         </div>
       </div>
     </section>

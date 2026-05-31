@@ -11,18 +11,20 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Subash Chandra Bose A — DevOps & Cloud Engineer',
+  title: 'Subash Chandra Bose A — Salesforce Admin · AWS Cloud Engineer · Flutter Dev',
   description:
-    'Elite developer portfolio of Subash Chandra Bose A — MCA graduate specializing in DevOps, Cloud Architecture, Backend Development, and AI/ML. AWS certified, Docker proficient, CI/CD builder.',
+    'Portfolio of Subash Chandra Bose A — MCA graduate and AWS Certified Solutions Architect specializing in Salesforce CRM administration, AWS cloud infrastructure, and Flutter mobile development. Available for 2026 graduate roles.',
   keywords: [
-    'DevOps Engineer', 'Cloud Engineer', 'MCA Graduate', 'AWS Certified',
-    'Docker', 'Kubernetes', 'CI/CD', 'Python', 'Node.js', 'Terraform',
-    'GitHub Actions', 'Subash Chandra Bose', 'Portfolio', 'Chennai',
+    'Salesforce Administrator', 'AWS Cloud Engineer', 'Flutter Developer',
+    'MCA Graduate', 'AWS Certified Solutions Architect', 'Salesforce CRM',
+    'Flow Builder', 'Custom Objects', 'Docker', 'Kubernetes', 'Terraform',
+    'GitHub Actions', 'CI/CD', 'Dart', 'Firebase', 'Python',
+    'Subash Chandra Bose', 'Portfolio', 'Chennai', '2026 Graduate',
   ],
   authors: [{ name: 'Subash Chandra Bose A' }],
   openGraph: {
-    title: 'Subash Chandra Bose A — DevOps & Cloud Engineer',
-    description: 'MCA graduate building cloud-native systems, exploring AI, and shipping scalable solutions.',
+    title: 'Subash Chandra Bose A — Salesforce Admin · AWS Cloud Engineer · Flutter Dev',
+    description: 'MCA graduate building Salesforce CRM solutions, AWS cloud infrastructure, and Flutter apps. AWS Certified Solutions Architect.',
     type: 'website',
   },
   robots: 'index, follow',

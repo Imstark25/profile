@@ -4,11 +4,12 @@ import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 
 const links = [
-  { label: 'About',    href: '#about'    },
-  { label: 'Skills',   href: '#skills'   },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Journey',  href: '#journey'  },
-  { label: 'Contact',  href: '#contact'  },
+  { label: 'About',          href: '#about'          },
+  { label: 'Skills',         href: '#skills'         },
+  { label: 'Certifications', href: '#certifications' },
+  { label: 'Projects',       href: '#projects'       },
+  { label: 'Experience',     href: '#experience'     },
+  { label: 'Contact',        href: '#contact'        },
 ]
 
 export default function Navbar() {
@@ -69,8 +70,8 @@ export default function Navbar() {
             <div
               className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold"
               style={{
-                background: 'linear-gradient(135deg, var(--violet), var(--cyan))',
-                boxShadow: '0 0 16px rgba(139,92,246,0.4)',
+                background: 'linear-gradient(135deg, #00A1E0, #54C5F8)',
+                boxShadow: '0 0 16px rgba(0,161,224,0.4)',
               }}
             >
               S

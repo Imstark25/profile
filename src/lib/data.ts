@@ -1,202 +1,242 @@
 /* ─── Personal Info ──────────────────────────────── */
 export const personal = {
   name:     "Subash Chandra Bose A",
-  tagline:  "Aspiring DevOps Engineer",
-  headline: "Learning, building, and growing one deployment at a time",
-  bio:      "A fresher with a passion for DevOps and cloud technologies. I've been hands-on with AWS, Docker, and CI/CD tools through projects and self-learning — eager to contribute to a real team and grow fast.",
+  tagline:  "Salesforce Administrator · AWS Cloud Engineer · Flutter Developer",
+  headline: "Building CRM solutions, cloud infrastructure, and cross-platform apps",
+  bio:      "MCA graduate with hands-on experience in Salesforce CRM administration, AWS cloud architecture, and Flutter mobile development. Certified AWS Solutions Architect with a track record of building end-to-end systems — from Salesforce Flow automation to containerized CI/CD pipelines and production Flutter apps.",
   email:    "subash.a2502@gmail.com",
   phone:    "9944082553",
   location: "Chennai, India",
   github:   "https://github.com/Imstark25",
   linkedin: "https://linkedin.com/in/subash-chandra-bose-a-177284301",
   summary:
-    "Fresh graduate with foundational knowledge in DevOps, cloud computing, and containerization. Actively building projects and earning certifications to bridge the gap between learning and production-ready skills.",
+    "MCA graduate specializing in Salesforce CRM, AWS Cloud, and Flutter development. AWS Certified Solutions Architect with internship experience at Coreverse Technologies. Skilled in building scalable CRM systems, automated CI/CD pipelines, and cross-platform mobile applications.",
   roles: [
-    "Aspiring DevOps Engineer",
-    "Cloud Enthusiast",
-    "AWS Learner",
-    "Open Source Explorer",
+    "Salesforce Administrator",
+    "AWS Cloud Engineer",
+    "Flutter Developer",
+    "MCA Graduate 2025",
   ],
 };
 
 /* ─── Stats ──────────────────────────────────────── */
 export const stats = [
-  { value: "3+",   label: "Personal Projects" },
-  { value: "2",    label: "AWS Certifications" },
-  { value: "1",    label: "Hackathon Win" },
-  { value: "100%", label: "Eager to Learn" },
+  { value: "4",    label: "Certifications" },
+  { value: "3+",   label: "Featured Projects" },
+  { value: "1",    label: "Internship" },
+  { value: "MCA",  label: "Graduate 2025" },
 ];
 
-/* ─── Core Skills ────────────────────────────────── */
-export const coreSkills = [
+/* ─── Skill Categories ───────────────────────────── */
+export const skillCategories = [
   {
-    icon:     "🐳",
-    name:     "Docker",
-    subTools: "Containers, Compose, Images",
-    level:    65,
-    label:    "Learning",
+    label:  "Salesforce",
+    color:  "#00A1E0",
+    glow:   "rgba(0,161,224,0.10)",
+    border: "rgba(0,161,224,0.20)",
+    icon:   "☁️",
+    description: "CRM platform administration & automation",
+    skills: [
+      { name: "Salesforce CRM",               level: 80 },
+      { name: "Custom Objects & Fields",       level: 78 },
+      { name: "Reports & Dashboards",          level: 82 },
+      { name: "Validation Rules",              level: 76 },
+      { name: "Flow Builder",                  level: 74 },
+      { name: "Profiles & Permission Sets",    level: 72 },
+    ],
   },
   {
-    icon:     "☁️",
-    name:     "AWS",
-    subTools: "EC2, S3, IAM, Lambda basics",
-    level:    60,
-    label:    "Learning",
+    label:  "Cloud & DevOps",
+    color:  "#FF9900",
+    glow:   "rgba(255,153,0,0.10)",
+    border: "rgba(255,153,0,0.20)",
+    icon:   "⚡",
+    description: "AWS certified cloud & container orchestration",
+    skills: [
+      { name: "AWS (EC2, S3, IAM, Lambda)",   level: 82 },
+      { name: "Docker & Docker Compose",       level: 75 },
+      { name: "Kubernetes",                    level: 62 },
+      { name: "Terraform (IaC)",               level: 68 },
+      { name: "GitHub Actions (CI/CD)",        level: 76 },
+      { name: "Prometheus & Grafana",          level: 58 },
+    ],
   },
   {
-    icon:     "🔄",
-    name:     "CI/CD",
-    subTools: "GitHub Actions, basic pipelines",
-    level:    55,
-    label:    "Learning",
-  },
-  {
-    icon:     "🐍",
-    name:     "Python",
-    subTools: "Scripting, automation basics",
-    level:    60,
-    label:    "Learning",
-  },
-  {
-    icon:     "🔀",
-    name:     "Git & GitHub",
-    subTools: "Version control, branching, PRs",
-    level:    70,
-    label:    "Comfortable",
-  },
-  {
-    icon:     "☸️",
-    name:     "Kubernetes",
-    subTools: "Pods, deployments — beginner level",
-    level:    35,
-    label:    "Beginner",
-  },
-  {
-    icon:     "🏗️",
-    name:     "Terraform",
-    subTools: "Basic IaC, HCL syntax",
-    level:    40,
-    label:    "Beginner",
-  },
-  {
-    icon:     "🐧",
-    name:     "Linux",
-    subTools: "CLI, bash scripting, file system",
-    level:    65,
-    label:    "Learning",
+    label:  "Development",
+    color:  "#54C5F8",
+    glow:   "rgba(84,197,248,0.10)",
+    border: "rgba(84,197,248,0.20)",
+    icon:   "📱",
+    description: "Cross-platform apps, scripting & databases",
+    skills: [
+      { name: "Flutter & Dart",               level: 80 },
+      { name: "Firebase",                      level: 74 },
+      { name: "Python",                        level: 70 },
+      { name: "SQL",                           level: 72 },
+      { name: "REST APIs",                     level: 68 },
+      { name: "Git & GitHub",                  level: 82 },
+    ],
   },
 ];
+
+/* ─── Legacy alias for components that use coreSkills ── */
+export const coreSkills = skillCategories.flatMap(c =>
+  c.skills.map(s => ({ ...s, icon: c.icon, label: c.label, subTools: '' }))
+);
 
 /* ─── Full Stack Grid ────────────────────────────── */
 export const stackGroups = [
   {
-    title: "Cloud & Infra",
-    tools: ["AWS EC2", "AWS S3", "AWS IAM", "AWS Lambda", "AWS Educate"],
+    title: "Salesforce",
+    tools: ["Salesforce CRM", "Flow Builder", "Custom Objects", "Reports", "Dashboards", "Validation Rules", "Permission Sets"],
   },
   {
-    title: "Containers",
-    tools: ["Docker", "Docker Compose", "Dockerfile", "Docker Hub"],
+    title: "Cloud & DevOps",
+    tools: ["AWS EC2", "AWS S3", "AWS IAM", "AWS Lambda", "Docker", "Kubernetes", "Terraform", "GitHub Actions"],
   },
   {
-    title: "CI/CD & Automation",
-    tools: ["GitHub Actions", "Git", "Bash Scripting", "Python Scripts"],
+    title: "Development",
+    tools: ["Flutter", "Dart", "Firebase", "Python", "SQL", "REST APIs"],
   },
   {
-    title: "Learning Next",
-    tools: ["Kubernetes", "Terraform", "Prometheus", "Grafana", "Ansible"],
-  },
-];
-
-/* ─── Experience ─────────────────────────────────── */
-export const experiences = [
-  {
-    title:       "Final Year Project — DevOps Pipeline",
-    company:     "Kongu Engineering College",
-    date:        "2024 – 2025",
-    description: "Built a CI/CD pipeline for a college project using GitHub Actions and Docker. Deployed a simple web app to AWS EC2 with automated build and test stages. This was my first hands-on experience with real DevOps workflows.",
-    tech:        ["GitHub Actions", "Docker", "AWS EC2", "Python", "Git"],
-  },
-  {
-    title:       "AWS Cloud Quest — 1st Place Winner",
-    company:     "Department Hackathon, KEC",
-    date:        "2024",
-    description: "Won the department-level AWS Cloud Quest competition. Demonstrated practical knowledge of AWS core services including EC2, S3, IAM, and basic serverless with Lambda.",
-    tech:        ["AWS EC2", "AWS S3", "AWS IAM", "AWS Lambda"],
-  },
-  {
-    title:       "Self-Learning — DevOps & Cloud",
-    company:     "Personal Development",
-    date:        "2023 – Present",
-    description: "Actively learning DevOps through online courses, hands-on labs, and personal projects. Completed AWS certifications and Databricks Generative AI Fundamentals. Building side projects to practice Docker, CI/CD, and cloud deployment.",
-    tech:        ["AWS", "Docker", "Terraform", "GitHub Actions", "Linux"],
-  },
-];
-
-/* ─── Projects ───────────────────────────────────── */
-export const projects = [
-  {
-    title:       "Dockerized Web App with CI/CD",
-    year:        "2025",
-    description: "Containerized a simple Node.js app using Docker and set up a GitHub Actions pipeline to auto-build and push images.",
-    bullets: [
-      "Wrote a Dockerfile and docker-compose.yml from scratch",
-      "GitHub Actions workflow: build → test → push to Docker Hub",
-      "Deployed to AWS EC2 via SSH on every main branch push",
-    ],
-    tech:        ["Docker", "GitHub Actions", "AWS EC2", "Node.js"],
-    link:        "https://github.com/Imstark25",
-    demo:        "",
-    featured:    true,
-  },
-  {
-    title:       "AWS Infrastructure Setup",
-    year:        "2025",
-    description: "Manually provisioned a small AWS environment with EC2, S3, and IAM roles as part of learning cloud fundamentals.",
-    bullets: [
-      "Created EC2 instances, configured security groups and key pairs",
-      "Set up S3 buckets with versioning and basic bucket policies",
-      "Wrote basic Terraform config to recreate the setup as IaC",
-    ],
-    tech:        ["AWS EC2", "AWS S3", "IAM", "Terraform"],
-    link:        "https://github.com/Imstark25",
-    demo:        "",
-    featured:    true,
-  },
-  {
-    title:       "Automated Backup Script",
-    year:        "2024",
-    description: "Wrote a Python + Bash script to automatically back up important directories to AWS S3 on a schedule.",
-    bullets: [
-      "Python script using boto3 to upload files to S3",
-      "Cron job on Linux for scheduled execution",
-      "Email notification on success/failure",
-    ],
-    tech:        ["Python", "AWS S3", "Linux", "Bash", "Cron"],
-    link:        "https://github.com/Imstark25",
-    demo:        "",
-    featured:    false,
+    title: "Tools",
+    tools: ["VS Code", "Postman", "Git", "Linux", "Prometheus", "Grafana"],
   },
 ];
 
 /* ─── Certifications ─────────────────────────────── */
 export const certifications = [
   {
-    name:   "AWS Certified Solutions Architect – Associate",
-    issuer: "Amazon Web Services",
-    link:   "https://aws.amazon.com/certification/",
-    color:  "#FF9900",
+    name:     "AWS Certified Solutions Architect – Associate",
+    issuer:   "Amazon Web Services",
+    year:     "2024",
+    link:     "https://aws.amazon.com/certification/certified-solutions-architect-associate/",
+    color:    "#FF9900",
+    glow:     "rgba(255,153,0,0.15)",
+    border:   "rgba(255,153,0,0.25)",
+    badge:    "AWS",
+    featured: true,
   },
   {
-    name:   "Databricks Generative AI Fundamentals",
-    issuer: "Databricks",
-    link:   "https://www.databricks.com/learn/certification",
-    color:  "#FF3621",
+    name:     "Databricks Generative AI Fundamentals",
+    issuer:   "Databricks",
+    year:     "2024",
+    link:     "https://www.databricks.com/learn/certification/generative-ai-fundamentals",
+    color:    "#FF3621",
+    glow:     "rgba(255,54,33,0.12)",
+    border:   "rgba(255,54,33,0.22)",
+    badge:    "DB",
+    featured: false,
   },
   {
-    name:   "AWS Educate – Cloud 101 & Storage",
-    issuer: "Amazon Web Services",
-    link:   "https://aws.amazon.com/education/awseducate/",
-    color:  "#FF9900",
+    name:     "AWS Educate – Cloud 101",
+    issuer:   "Amazon Web Services",
+    year:     "2023",
+    link:     "https://aws.amazon.com/education/awseducate/",
+    color:    "#FF9900",
+    glow:     "rgba(255,153,0,0.12)",
+    border:   "rgba(255,153,0,0.22)",
+    badge:    "AWS",
+    featured: false,
+  },
+  {
+    name:     "Anthropic Claude – Code in Action",
+    issuer:   "Anthropic",
+    year:     "2025",
+    link:     "https://www.anthropic.com/",
+    color:    "#CC785C",
+    glow:     "rgba(204,120,92,0.12)",
+    border:   "rgba(204,120,92,0.22)",
+    badge:    "AI",
+    featured: false,
+  },
+];
+
+/* ─── Experience ─────────────────────────────────── */
+export const experiences = [
+  {
+    title:       "Cloud & Flutter Developer Intern",
+    company:     "Coreverse Technologies Pvt Ltd",
+    date:        "2024 – 2025",
+    type:        "internship",
+    description: "Worked as a Cloud & Flutter Developer intern, contributing to AWS infrastructure setup and Flutter mobile application development. Gained hands-on experience with cloud deployments, CI/CD pipelines, and cross-platform mobile apps in a professional setting.",
+    tech:        ["Flutter", "Dart", "AWS", "Firebase", "Docker", "Git"],
+  },
+  {
+    title:       "Salesforce CRM – Final Year Project",
+    company:     "Kongu Engineering College (MCA)",
+    date:        "2024 – 2025",
+    type:        "project",
+    description: "Built a Student Admission Management System on Salesforce CRM as the final year MCA project. Implemented custom objects, automation flows, reports, dashboards, and role-based access using Profiles and Permission Sets.",
+    tech:        ["Salesforce CRM", "Flow Builder", "Custom Objects", "Reports", "Dashboards"],
+  },
+  {
+    title:       "1st Place – AWS Cloud Quest Challenge",
+    company:     "Department Hackathon, Kongu Engineering College",
+    date:        "2024",
+    type:        "achievement",
+    description: "Won the department-level AWS Cloud Quest competition, demonstrating strong AWS fundamentals including EC2, S3, IAM, and Lambda. Competed against final-year peers in a timed cloud architecture challenge.",
+    tech:        ["AWS EC2", "AWS S3", "AWS IAM", "AWS Lambda"],
+  },
+  {
+    title:       "Self-Learning – Certifications & Projects",
+    company:     "Personal Development",
+    date:        "2023 – Present",
+    type:        "learning",
+    description: "Continuously upskilling through AWS certifications, Databricks GenAI, and Claude AI courses. Building real-world projects spanning Salesforce CRM, containerized DevOps pipelines, and Terraform infrastructure automation.",
+    tech:        ["AWS", "Salesforce", "Terraform", "Docker", "Flutter"],
+  },
+];
+
+/* ─── Projects ───────────────────────────────────── */
+export const projects = [
+  {
+    title:       "Student Admission Management System",
+    year:        "2025",
+    description: "A full-featured Salesforce CRM solution for managing student admissions end-to-end — from inquiry to enrollment. Built custom objects, automated approval workflows using Flow Builder, and created executive dashboards for real-time insights.",
+    bullets: [
+      "Designed custom Salesforce objects for Student, Application, and Enrollment records",
+      "Built automated admission Flow with approval stages, email alerts, and validation rules",
+      "Created role-based access with Profiles, Permission Sets, and Record-Level Security",
+      "Developed 10+ real-time reports and executive dashboards for admin oversight",
+    ],
+    tech:        ["Salesforce CRM", "Flow Builder", "Custom Objects", "Reports", "Dashboards", "Validation Rules"],
+    link:        "https://github.com/Imstark25",
+    demo:        "",
+    featured:    true,
+    color:       "#00A1E0",
+  },
+  {
+    title:       "CI/CD Pipeline with Monitoring for Logistics Platform",
+    year:        "2025",
+    description: "End-to-end DevOps pipeline for a logistics platform — containerized with Docker, orchestrated on Kubernetes, with full observability via Prometheus and Grafana dashboards monitoring system health in real time.",
+    bullets: [
+      "Containerized the logistics API with Docker and orchestrated via Kubernetes (K8s)",
+      "Built GitHub Actions CI/CD pipeline: test → build → push → deploy stages",
+      "Set up Prometheus scraping + Grafana dashboards for CPU, memory, and latency metrics",
+      "Configured auto-scaling and health checks for zero-downtime deployments",
+    ],
+    tech:        ["AWS", "Docker", "Kubernetes", "GitHub Actions", "Prometheus", "Grafana"],
+    link:        "https://github.com/Imstark25",
+    demo:        "",
+    featured:    true,
+    color:       "#FF9900",
+  },
+  {
+    title:       "Automated CI/CD Infrastructure Deployment",
+    year:        "2024",
+    description: "Infrastructure-as-Code project using Terraform to provision full AWS environments — VPC, EC2, S3, IAM — with GitHub Actions automating plan, validate, and apply stages on every push to main.",
+    bullets: [
+      "Wrote modular Terraform configs for VPC, EC2 instances, S3 buckets, and IAM roles",
+      "GitHub Actions workflow: terraform fmt → validate → plan → apply on merge to main",
+      "State management using AWS S3 backend with DynamoDB locking for team safety",
+      "Reduced environment setup time from hours to under 8 minutes end-to-end",
+    ],
+    tech:        ["Terraform", "AWS", "GitHub Actions", "S3 Backend", "IAM", "EC2"],
+    link:        "https://github.com/Imstark25",
+    demo:        "",
+    featured:    true,
+    color:       "#54C5F8",
   },
 ];
 
@@ -211,6 +251,6 @@ export const achievements = [
 
 /* ─── Tech Tag Cloud ────────────────────────────── */
 export const techBadges = [
-  "AWS", "Docker", "GitHub Actions", "Python",
-  "Git", "Linux", "Terraform", "Kubernetes",
+  "Salesforce", "AWS", "Flutter", "Docker", "Terraform",
+  "Kubernetes", "GitHub Actions", "Python", "SQL", "Firebase",
 ];
